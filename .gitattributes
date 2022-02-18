@@ -1,0 +1,3 @@
+*.swift !text !filter !merge !diff
+*.pbxproj !text !filter !merge !diff
+*.exec !text !filter !merge !diff
