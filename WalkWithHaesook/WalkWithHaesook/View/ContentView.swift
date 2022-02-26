@@ -6,10 +6,26 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
+    @EnvironmentObject var mapViewModel: MapViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            MapView()
+            VStack {
+                Spacer()
+                Button(action: mapViewModel.focusLocation) {
+                    Image(systemName: "scope")
+                        .font(.body)
+                        .padding(10)
+                        .background(Color.white)
+                        .clipShape(Circle())
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .padding()
+        }
     }
 }
 

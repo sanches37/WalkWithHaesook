@@ -9,14 +9,18 @@ import SwiftUI
 import NMapsMap
 
 struct MapView: UIViewRepresentable {
+    @EnvironmentObject var mapViewModel: MapViewModel
+    
     func makeUIView(context: Context) -> NMFMapView {
-        let view = NMFMapView()
+        let view = mapViewModel.mapView
         view.mapType = .basic
         view.addCameraDelegate(delegate: context.coordinator)
+        
         return view
     }
     
     func updateUIView(_ uiView: NMFMapView, context: Context) {
+        mapViewModel.focusLocation()
     }
     
     func makeCoordinator() -> Coordinator {
@@ -24,5 +28,9 @@ struct MapView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, NMFMapViewCameraDelegate {
+        private let mapViewModel = MapViewModel()
+        func mapViewCameraIdle(_ mapView: NMFMapView) {
+            mapViewModel.updateMarkers(mapView: mapView)
+        }
     }
 }
