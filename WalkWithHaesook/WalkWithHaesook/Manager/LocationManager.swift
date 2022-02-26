@@ -55,4 +55,3 @@ extension LocationManager: CLLocationManagerDelegate {
         debugPrint(error.localizedDescription)
     }
 }
-

@@ -26,4 +26,3 @@ struct MapView: UIViewRepresentable {
     class Coordinator: NSObject, NMFMapViewCameraDelegate {
     }
 }
-
