@@ -1,0 +1,8 @@
+disabled_rules:
+- line_length
+- trailing_whitespace
+included:
+excluded:
+- Pods
+- OpenMarket/AppDelegate.swift
+- OpenMarket/SceneDelegate.swift
