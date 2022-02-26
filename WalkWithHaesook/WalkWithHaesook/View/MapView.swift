@@ -20,7 +20,9 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFMapView, context: Context) {
-        mapViewModel.focusLocation()
+        if uiView.positionMode == .disabled {
+            mapViewModel.focusLocation()
+        }
     }
     
     func makeCoordinator() -> Coordinator {
