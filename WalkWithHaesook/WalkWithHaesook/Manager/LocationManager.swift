@@ -7,14 +7,11 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 class LocationManager: NSObject {
     private let locationManger = CLLocationManager()
-    var locationCompletion: ((CLLocation) -> Void)?
-    
-    func getUserLocation(completion: @escaping (CLLocation) -> Void) {
-        self.locationCompletion = completion
-    }
+    let locationSubject = PassthroughSubject<CLLocation, LocationError>()
     
     override init() {
         super.init()
@@ -25,7 +22,7 @@ class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        locationCompletion?(location)
+        locationSubject.send(location)
     }
     
     @available(iOS, deprecated: 14.0)
@@ -43,7 +40,7 @@ extension LocationManager: CLLocationManagerDelegate {
         case .notDetermined:
             locationManger.requestWhenInUseAuthorization()
         case .denied:
-            debugPrint("denied")
+            locationSubject.send(completion: .failure(.denied))
         case .authorizedWhenInUse:
             locationManger.startUpdatingLocation()
         default:

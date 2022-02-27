@@ -7,24 +7,31 @@
 
 import SwiftUI
 import NMapsMap
+import Combine
 
 class MapViewModel: ObservableObject {
-    private let locationManager: LocationManager
+    private let locationManager = LocationManager()
     private let latLngDummy = LatLngDummy()
+    private var subscriptions = Set<AnyCancellable>()
     let mapView = NMFMapView()
     var markerArray: [NMFMarker] = []
     @Published var region: NMGLatLng?
+    @Published var deniedMassage: String?
     
     init() {
-        self.locationManager = LocationManager()
         getUserLocation()
     }
     
     private func getUserLocation() {
-        locationManager.getUserLocation { [weak self] location in
-            self?.region = NMGLatLng(lat: location.coordinate.latitude,
+        locationManager.locationSubject.sink { result in
+            if case .failure(let error) = result {
+                self.deniedMassage = error.localizedDescription
+            }
+        } receiveValue: { location in
+            self.region = NMGLatLng(lat: location.coordinate.latitude,
                                      lng: location.coordinate.longitude)
         }
+        .store(in: &subscriptions)
     }
     
     func focusLocation() {
