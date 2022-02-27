@@ -18,6 +18,8 @@
 		4D48E1B127C1860900F15D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D48E1B027C1860900F15D7E /* Assets.xcassets */; };
 		4D48E1B427C1860900F15D7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D48E1B227C1860900F15D7E /* LaunchScreen.storyboard */; };
 		4D48E1BC27C1868400F15D7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D48E1BB27C1868400F15D7E /* ContentView.swift */; };
+		4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134127CC26FD00D9442E /* FireStoreManager.swift */; };
+		4DD1134527CC272200D9442E /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134427CC272200D9442E /* FireStoreError.swift */; };
 		B3771BF2784B99B2990BCF11 /* Pods_WalkWithHaesook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 296A8108108202A30580A978 /* Pods_WalkWithHaesook.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		4D48E1B327C1860900F15D7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D48E1B527C1860900F15D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D48E1BB27C1868400F15D7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4DD1134127CC26FD00D9442E /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
+		4DD1134427CC272200D9442E /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		5E6D63B1DF3F647ADD14AC1A /* Pods-WalkWithHaesook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkWithHaesook.release.xcconfig"; path = "Target Support Files/Pods-WalkWithHaesook/Pods-WalkWithHaesook.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				4D244AA727CA1B0200B436FD /* LocationManager.swift */,
+				4DD1134127CC26FD00D9442E /* FireStoreManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 				4D244AA927CA1B4600B436FD /* ViewModel */,
 				4D244AA627CA1ACB00B436FD /* Manager */,
 				4D244AA327CA1A4E00B436FD /* View */,
+				4DD1134327CC271500D9442E /* Error */,
 				4D48E1A727C1860800F15D7E /* AppDelegate.swift */,
 				4D48E1A927C1860800F15D7E /* SceneDelegate.swift */,
 				4D48E1B027C1860900F15D7E /* Assets.xcassets */,
@@ -127,6 +133,14 @@
 				4D244A9E27CA179300B436FD /* GoogleService-Info.plist */,
 			);
 			path = WalkWithHaesook;
+			sourceTree = "<group>";
+		};
+		4DD1134327CC271500D9442E /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				4DD1134427CC272200D9442E /* FireStoreError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		CD6BC5F3DB3EEAED766ACA91 /* Pods */ = {
@@ -279,6 +293,8 @@
 				4D48E1AA27C1860800F15D7E /* SceneDelegate.swift in Sources */,
 				4D48E1BC27C1868400F15D7E /* ContentView.swift in Sources */,
 				4D244AAB27CA1B5500B436FD /* MapViewModel.swift in Sources */,
+				4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */,
+				4DD1134527CC272200D9442E /* FireStoreError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

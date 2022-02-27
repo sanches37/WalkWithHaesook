@@ -7,6 +7,7 @@
 
 import Foundation
 import NMapsMap
+import Combine
 
 struct LatLngDummy {
     var latLng: [NMGLatLng]
@@ -20,4 +21,8 @@ struct LatLngDummy {
             NMGLatLng(lat: 37.364456, lng: 127.141183)
         ]
     }
+}
+
+class Psas: ObservableObject {
+    
 }
