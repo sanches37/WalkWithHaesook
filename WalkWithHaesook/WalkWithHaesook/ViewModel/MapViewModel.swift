@@ -23,14 +23,13 @@ class MapViewModel: ObservableObject {
     }
     
     private func getUserLocation() {
-        locationManager.locationSubject.sink { result in
-            if case .failure(let error) = result {
+        locationManager.locationSubject.sink { location in
+            if let location = location {
+                self.region = NMGLatLng(lat: location.coordinate.latitude,
+                                         lng: location.coordinate.longitude)
+            } else {
                 self.permissionDenied = true
-                debugPrint(error.errorDescription)
             }
-        } receiveValue: { location in
-            self.region = NMGLatLng(lat: location.coordinate.latitude,
-                                     lng: location.coordinate.longitude)
         }
         .store(in: &subscriptions)
     }

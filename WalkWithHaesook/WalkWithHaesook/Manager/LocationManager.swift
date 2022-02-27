@@ -11,7 +11,7 @@ import Combine
 
 class LocationManager: NSObject {
     private let locationManger = CLLocationManager()
-    let locationSubject = PassthroughSubject<CLLocation, LocationError>()
+    var locationSubject = PassthroughSubject<CLLocation?, Never>()
     
     override init() {
         super.init()
@@ -40,7 +40,7 @@ extension LocationManager: CLLocationManagerDelegate {
         case .notDetermined:
             locationManger.requestWhenInUseAuthorization()
         case .denied:
-            locationSubject.send(completion: .failure(.denied))
+            locationSubject.send(nil)
         case .authorizedWhenInUse:
             locationManger.startUpdatingLocation()
         default:
