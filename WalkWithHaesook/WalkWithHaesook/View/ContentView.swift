@@ -25,6 +25,16 @@ struct ContentView: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding()
         }
+        .alert(isPresented: $mapViewModel.permissionDenied) {
+            let firstButton = Alert.Button.cancel((Text("취소")))
+            let secondButton = Alert.Button.default(Text("설정")) {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+            return Alert(title: Text("위치 허용이 되지 않았습니다."),
+                         message: Text("설정에서 위치 허용을 해주세요"),
+                         primaryButton: firstButton,
+                         secondaryButton: secondButton)
+        }
     }
 }
 

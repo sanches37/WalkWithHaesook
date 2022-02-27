@@ -16,7 +16,7 @@ class MapViewModel: ObservableObject {
     let mapView = NMFMapView()
     var markerArray: [NMFMarker] = []
     @Published var region: NMGLatLng?
-    @Published var deniedMassage: String?
+    @Published var permissionDenied = false
     
     init() {
         getUserLocation()
@@ -25,7 +25,8 @@ class MapViewModel: ObservableObject {
     private func getUserLocation() {
         locationManager.locationSubject.sink { result in
             if case .failure(let error) = result {
-                self.deniedMassage = error.localizedDescription
+                self.permissionDenied = true
+                debugPrint(error.errorDescription)
             }
         } receiveValue: { location in
             self.region = NMGLatLng(lat: location.coordinate.latitude,

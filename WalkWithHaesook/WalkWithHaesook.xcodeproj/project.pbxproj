@@ -129,11 +129,11 @@
 				4D244AA927CA1B4600B436FD /* ViewModel */,
 				4D244AA627CA1ACB00B436FD /* Manager */,
 				4D244AA327CA1A4E00B436FD /* View */,
+				4D244AAF27CAF82D00B436FD /* Error */,
 				4D48E1A727C1860800F15D7E /* AppDelegate.swift */,
 				4D48E1A927C1860800F15D7E /* SceneDelegate.swift */,
 				4D48E1B027C1860900F15D7E /* Assets.xcassets */,
 				4D48E1B227C1860900F15D7E /* LaunchScreen.storyboard */,
-				4D244AAF27CAF82D00B436FD /* Error */,
 				4D48E1B527C1860900F15D7E /* Info.plist */,
 				4D244A9E27CA179300B436FD /* GoogleService-Info.plist */,
 			);
