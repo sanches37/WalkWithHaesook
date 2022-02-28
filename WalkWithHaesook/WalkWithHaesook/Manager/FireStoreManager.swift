@@ -12,7 +12,7 @@ struct FireStoreManager {
     private let db = Firestore.firestore()
     private let path = "WorkList"
     
-    func fetch<T: Decodable>(completion: @escaping (Result<[T], FireSotreError>) -> Void) {
+    func fetch<T: Decodable>(completion: @escaping (Result<[T], FireStoreError>) -> Void) {
         db.collection(path).addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(.unknown(description: error.localizedDescription)))

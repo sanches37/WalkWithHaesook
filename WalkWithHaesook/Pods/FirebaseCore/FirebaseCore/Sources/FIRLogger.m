@@ -58,7 +58,7 @@ static NSString *const kMessageCodePattern = @"^I-[A-Z]{3}[0-9]{6}$";
 static NSRegularExpression *sMessageCodeRegex;
 #endif
 
-void FIRLoggerInitializeASL() {
+void FIRLoggerInitializeASL(void) {
   dispatch_once(&sFIRLoggerOnceToken, ^{
     // Register Firebase Version with GULLogger.
     GULLoggerRegisterVersion(FIRVersionString);
@@ -101,7 +101,7 @@ void FIRSetLoggerLevel(FIRLoggerLevel loggerLevel) {
 }
 
 #ifdef DEBUG
-void FIRResetLogger() {
+void FIRResetLogger(void) {
   extern void GULResetLogger(void);
   sFIRLoggerOnceToken = 0;
   [sFIRLoggerUserDefaults removeObjectForKey:kFIRPersistedDebugModeKey];

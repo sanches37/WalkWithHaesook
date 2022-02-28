@@ -7,7 +7,6 @@
 
 import Foundation
 import NMapsMap
-import Combine
 
 struct LatLngDummy {
     var latLng: [NMGLatLng]
@@ -23,6 +22,6 @@ struct LatLngDummy {
     }
 }
 
-class Psas: ObservableObject {
+struct WalkList: Decodable {
     
 }
