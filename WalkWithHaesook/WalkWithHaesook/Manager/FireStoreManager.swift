@@ -10,7 +10,7 @@ import FirebaseFirestoreSwift
 
 struct FireStoreManager {
     private let db = Firestore.firestore()
-    private let path = "WorkList"
+    private let path = "WalkList"
     
     func fetch<T: Decodable>(completion: @escaping (Result<[T], FireStoreError>) -> Void) {
         db.collection(path).addSnapshotListener { snapshot, error in

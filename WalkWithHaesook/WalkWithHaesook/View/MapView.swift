@@ -15,7 +15,6 @@ struct MapView: UIViewRepresentable {
         let view = mapViewModel.mapView
         view.mapType = .basic
         view.addCameraDelegate(delegate: context.coordinator)
-        
         return view
     }
     
@@ -32,7 +31,7 @@ struct MapView: UIViewRepresentable {
     class Coordinator: NSObject, NMFMapViewCameraDelegate {
         private let mapViewModel = MapViewModel()
         func mapViewCameraIdle(_ mapView: NMFMapView) {
-            mapViewModel.updateMarkers(mapView: mapView)
+            mapViewModel.configureViewModel(mapView: mapView)
         }
     }
 }
