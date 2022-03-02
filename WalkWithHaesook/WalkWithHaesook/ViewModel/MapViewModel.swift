@@ -11,12 +11,12 @@ import Combine
 class MapViewModel: ObservableObject {
     private let walkRepository = WalkRepository()
     private let locationManager = LocationManager()
-    private var subscriptions = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     let mapView = NMFMapView()
     private var markerArray: [NMFMarker] = []
     @Published var region: NMGLatLng?
     @Published var permissionDenied = false
-    @Published var screenWalkList: [WalkList] = []
+    @Published var screenWalkViewModel: [WalkViewModel] = []
     
     init() {
         getUserLocation()
@@ -31,7 +31,7 @@ class MapViewModel: ObservableObject {
                 self.permissionDenied = true
             }
         }
-        .store(in: &subscriptions)
+        .store(in: &cancellables)
     }
     
     func focusLocation() {
@@ -65,15 +65,21 @@ class MapViewModel: ObservableObject {
         }
     }
     
-    private func filterScreenWalkList(mapView: NMFMapView) {
-         screenWalkList = walkRepository.walkList.filter {
-            let latLng = NMGLatLng(lat: $0.latLng.latitude, lng: $0.latLng.longitude)
-            return mapView.contentBounds.hasPoint(latLng)
-        }
+    private func filterScreenWalkViewModel(mapView: NMFMapView) {
+        walkRepository.$walkList
+            .map {
+                $0.filter {
+                    let latLng = NMGLatLng(lat: $0.latLng.latitude, lng: $0.latLng.longitude)
+                    return mapView.contentBounds.hasPoint(latLng)
+                }
+                .map(WalkViewModel.init)
+            }
+            .assign(to: \.screenWalkViewModel, on: self)
+            .store(in: &cancellables)
     }
     
     func configureViewModel(mapView: NMFMapView) {
         updateMarkers(mapView: mapView)
-        filterScreenWalkList(mapView: mapView)
+        filterScreenWalkViewModel(mapView: mapView)
     }
 }

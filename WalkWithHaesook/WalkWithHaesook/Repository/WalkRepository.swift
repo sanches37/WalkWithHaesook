@@ -7,7 +7,7 @@
 
 import Combine
 
-class WalkRepository {
+class WalkRepository: ObservableObject {
     private let fireStoreManager = FireStoreManager()
     @Published var walkList: [WalkList] = []
     
