@@ -21,9 +21,16 @@ struct ContentView: View {
                         .background(Color.white)
                         .clipShape(Circle())
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(mapViewModel.tableViewModel) { tableViewModel in
+                            WalkTable(tableViewModel: tableViewModel)
+                        }
+                    }
+                }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .padding()
         }
         .alert(isPresented: $mapViewModel.permissionDenied) {
             let firstButton = Alert.Button.cancel((Text("취소")))

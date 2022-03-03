@@ -6,15 +6,28 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct WalkTable: View {
+    var tableViewModel: TableViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct WalkTable_Previews: PreviewProvider {
-    static var previews: some View {
-        WalkTable()
+        HStack {
+            KFImage(URL(string: tableViewModel.walk.thumnail))
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.main.bounds.width / 3, height: 90)
+            VStack(alignment: .leading, spacing: 10) {
+                Text(tableViewModel.walk.title)
+                    .fontWeight(.heavy)
+                    .foregroundColor(.black)
+                Text(tableViewModel.distance)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            Spacer()
+        }
+        .background(Color.white)
+        .frame(width: UIScreen.main.bounds.width, height: 90)
+        .padding()
     }
 }

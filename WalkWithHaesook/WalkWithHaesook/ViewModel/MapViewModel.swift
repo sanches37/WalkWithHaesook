@@ -13,19 +13,21 @@ class MapViewModel: ObservableObject {
     private let locationManager = LocationManager()
     private var cancellables = Set<AnyCancellable>()
     let mapView = NMFMapView()
-    private var markerArray: [NMFMarker] = []
-    @Published var region: NMGLatLng?
+    @Published var userLocation: NMGLatLng?
     @Published var permissionDenied = false
-    @Published var screenWalkViewModel: [WalkViewModel] = []
+    @Published var tableViewModel: [TableViewModel] = []
+    @Published var markerViewModel: [MarkerViewModel] = []
     
     init() {
         getUserLocation()
+        setUpMarkerViewModel()
+        setUpTableViewModel(mapView: mapView)
     }
     
     private func getUserLocation() {
         locationManager.locationSubject.sink { location in
             if let location = location {
-                self.region = NMGLatLng(lat: location.coordinate.latitude,
+                self.userLocation = NMGLatLng(lat: location.coordinate.latitude,
                                         lng: location.coordinate.longitude)
             } else {
                 self.permissionDenied = true
@@ -35,51 +37,62 @@ class MapViewModel: ObservableObject {
     }
     
     func focusLocation() {
-        guard let region = region else { return }
+        guard let userLocation = userLocation else { return }
         mapView.positionMode = .direction
-        let cameraUpdate = NMFCameraUpdate(scrollTo: region)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: userLocation)
         cameraUpdate.animation = .easeIn
         cameraUpdate.animationDuration = 1
         mapView.moveCamera(cameraUpdate)
     }
-   
-    private func convertMarkers() {
-        let markersPosition = markerArray.map { $0.position }
-        walkRepository.walkList.forEach {
-            let latLng = NMGLatLng(lat: $0.latLng.latitude, lng: $0.latLng.longitude)
-            let marker = NMFMarker(position: latLng)
-            if !markersPosition.contains(latLng) {
-                markerArray.append(marker)
+    
+    private func setUpMarkerViewModel() {
+        walkRepository.$walk
+            .map { walkList -> [MarkerViewModel] in
+                walkList.map { walk -> MarkerViewModel in
+                    let latLng = NMGLatLng(
+                        lat: walk.latLng.latitude,
+                        lng: walk.latLng.longitude)
+                    let marker = NMFMarker(position: latLng)
+                    return MarkerViewModel(
+                        marker: marker,
+                        walk: walk)
+                }
             }
-        }
+            .assign(to: \.markerViewModel, on: self)
+            .store(in: &cancellables)
     }
     
     private func updateMarkers(mapView: NMFMapView) {
-        convertMarkers()
-        markerArray.forEach { marker in
-            if mapView.contentBounds.hasPoint(marker.position) {
-                marker.mapView = mapView
+        markerViewModel.forEach {
+            if mapView.contentBounds.hasPoint($0.marker.position) {
+                $0.marker.mapView = mapView
             } else {
-                marker.mapView = nil
+                $0.marker.mapView = nil
             }
         }
     }
     
-    private func filterScreenWalkViewModel(mapView: NMFMapView) {
-        walkRepository.$walkList
-            .map {
-                $0.filter {
-                    let latLng = NMGLatLng(lat: $0.latLng.latitude, lng: $0.latLng.longitude)
-                    return mapView.contentBounds.hasPoint(latLng)
+    private func setUpTableViewModel(mapView: NMFMapView) {
+        walkRepository.$walk
+            .combineLatest($userLocation)
+            .map { (walkList, userLocation) -> [TableViewModel] in
+                walkList.compactMap { walk -> TableViewModel? in
+                    let latLng = NMGLatLng(
+                        lat: walk.latLng.latitude,
+                        lng: walk.latLng.longitude)
+                    guard let distance = userLocation?.distance(to: latLng) else { return nil }
+                    return TableViewModel(
+                        walk: walk,
+                        latLng: latLng,
+                        distance: String(distance))
                 }
-                .map(WalkViewModel.init)
             }
-            .assign(to: \.screenWalkViewModel, on: self)
+            .assign(to: \.tableViewModel, on: self)
             .store(in: &cancellables)
     }
     
     func configureViewModel(mapView: NMFMapView) {
         updateMarkers(mapView: mapView)
-        filterScreenWalkViewModel(mapView: mapView)
+        setUpTableViewModel(mapView: mapView)
     }
 }

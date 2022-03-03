@@ -9,17 +9,17 @@ import Combine
 
 class WalkRepository: ObservableObject {
     private let fireStoreManager = FireStoreManager()
-    @Published var walkList: [WalkList] = []
+    @Published var walk: [Walk] = []
     
     init() {
         getFireStoreData()
     }
     
     private func getFireStoreData() {
-        fireStoreManager.fetch { (result: Result<[WalkList], FireStoreError>) in
+        fireStoreManager.fetch { (result: Result<[Walk], FireStoreError>) in
             switch result {
             case .success(let data):
-                self.walkList = data
+                self.walk = data
             case .failure(let error):
                 debugPrint(error.errorDescription)
             }
