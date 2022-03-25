@@ -25,13 +25,28 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        MapView.Coordinator()
+        MapView.Coordinator(mapViewModel: mapViewModel)
     }
     
     class Coordinator: NSObject, NMFMapViewCameraDelegate {
-        private let mapViewModel = MapViewModel()
+        private let mapViewModel: MapViewModel
+        
+        init(mapViewModel: MapViewModel) {
+            self.mapViewModel = mapViewModel
+        }
+        
         func mapViewCameraIdle(_ mapView: NMFMapView) {
-            mapViewModel.configureViewModel(mapView: mapView)
+            updateMarkers(mapView: mapView)
+        }
+        
+        private func updateMarkers(mapView: NMFMapView) {
+            mapViewModel.markerViewModel.forEach {
+                if mapView.contentBounds.hasPoint($0.marker.position) {
+                    $0.marker.mapView = mapView
+                } else {
+                    $0.marker.mapView = nil
+                }
+            }
         }
     }
 }

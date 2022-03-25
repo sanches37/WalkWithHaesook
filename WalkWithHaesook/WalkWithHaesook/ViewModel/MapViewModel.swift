@@ -21,7 +21,6 @@ class MapViewModel: ObservableObject {
     init() {
         getUserLocation()
         setUpMarkerViewModel()
-        setUpTableViewModel(mapView: mapView)
     }
     
     private func getUserLocation() {
@@ -62,16 +61,6 @@ class MapViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func updateMarkers(mapView: NMFMapView) {
-        markerViewModel.forEach {
-            if mapView.contentBounds.hasPoint($0.marker.position) {
-                $0.marker.mapView = mapView
-            } else {
-                $0.marker.mapView = nil
-            }
-        }
-    }
-    
     private func setUpTableViewModel(mapView: NMFMapView) {
         walkRepository.$walk
             .combineLatest($userLocation)
@@ -89,10 +78,5 @@ class MapViewModel: ObservableObject {
             }
             .assign(to: \.tableViewModel, on: self)
             .store(in: &cancellables)
-    }
-    
-    func configureViewModel(mapView: NMFMapView) {
-        updateMarkers(mapView: mapView)
-        setUpTableViewModel(mapView: mapView)
     }
 }
