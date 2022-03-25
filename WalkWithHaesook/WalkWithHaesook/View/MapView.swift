@@ -36,6 +36,8 @@ struct MapView: UIViewRepresentable {
             $0.marker.iconImage = markerImage
             $0.marker.width = 40
             $0.marker.height = 40
+            $0.infoWindow.dataSource = CustomInfoWindowDataSource(title: $0.title)
+
         }
     }
     
@@ -57,8 +59,10 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
         mapViewModel.markerViewModel.forEach {
             if mapView.contentBounds.hasPoint($0.marker.position) {
                 $0.marker.mapView = mapView
+                $0.infoWindow.open(with: $0.marker)
             } else {
                 $0.marker.mapView = nil
+                $0.infoWindow.close()
             }
         }
     }
