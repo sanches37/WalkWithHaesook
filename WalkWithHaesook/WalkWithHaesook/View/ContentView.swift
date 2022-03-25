@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             MapView()
-            VStack {
+            VStack(spacing: .zero) {
                 Spacer()
                 Button(action: mapViewModel.focusLocation) {
                     Image(systemName: "scope")
@@ -23,9 +23,8 @@ struct ContentView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding()
-                WalkList(listViewModel: mapViewModel.listViewModel)
-                }
-     
+                WalkListView(listViewModel: mapViewModel.listViewModel)
+            }
         }
         .alert(isPresented: $mapViewModel.permissionDenied) {
             let firstButton = Alert.Button.cancel((Text("취소")))

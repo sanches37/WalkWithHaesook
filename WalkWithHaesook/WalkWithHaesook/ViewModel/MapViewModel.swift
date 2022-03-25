@@ -55,7 +55,7 @@ class MapViewModel: ObservableObject {
     
     func setUpListViewModel(id: String) {
         walkRepository.$walk
-            .combineLatest($userLocation)
+            .combineLatest($userLocation.first())
             .map { (walkList, userLocation) -> ListViewModel? in
                 guard let index = walkList.firstIndex(where: { $0.id == id }) else {
                    return nil
@@ -68,7 +68,10 @@ class MapViewModel: ObservableObject {
                 }
                 return ListViewModel(walk: walkList[index], latLng: latLng, distance: String(distance))
             }
-            .assign(to: \.listViewModel, on: self)
+            .sink(receiveValue: { listViewModel in
+                self.listViewModel = listViewModel
+            })
+//            .assign(to: \.listViewModel, on: self)
             .store(in: &cancellables)
     }
     

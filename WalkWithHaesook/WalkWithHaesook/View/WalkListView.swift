@@ -8,28 +8,30 @@
 import SwiftUI
 import Kingfisher
 
-struct WalkList: View {
+struct WalkListView: View {
     var listViewModel: ListViewModel?
     var body: some View {
         if let listViewModel = listViewModel {
-            HStack {
+            HStack() {
                 KFImage(URL(string: listViewModel.walk.thumnail))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.main.bounds.width / 3, height: 90)
-                VStack(alignment: .leading, spacing: 10) {
+                    .frame(width: UIScreen.main.bounds.width / 3.5,
+                           height: UIScreen.main.bounds.width / 3.5)
+                VStack(alignment: .leading, spacing: 15) {
                     Text(listViewModel.walk.title)
                         .fontWeight(.heavy)
+                        .font(.body)
                         .foregroundColor(.black)
                     Text(listViewModel.distance)
-                        .font(.caption)
+                        .font(.body)
                         .foregroundColor(.gray)
                 }
                 Spacer()
             }
             .background(Color.white)
-            .frame(width: UIScreen.main.bounds.width, height: 90)
-            .padding()
+            .cornerRadius(10)
+            .padding([.bottom, .horizontal])
         }
     }
 }
