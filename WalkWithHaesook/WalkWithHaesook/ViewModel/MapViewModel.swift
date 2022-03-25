@@ -52,8 +52,10 @@ class MapViewModel: ObservableObject {
                         lat: walk.latLng.latitude,
                         lng: walk.latLng.longitude)
                     let marker = NMFMarker(position: latLng)
+                    let infoWindow = NMFInfoWindow()
                     return MarkerViewModel(
                         marker: marker,
+                        infoWindow: infoWindow,
                         walk: walk)
                 }
             }
