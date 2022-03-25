@@ -10,6 +10,7 @@ import NMapsMap
 
 struct MapView: UIViewRepresentable {
     @EnvironmentObject var mapViewModel: MapViewModel
+    let markerImage = "juicy_fish_veterinarian_icon"
     
     func makeUIView(context: Context) -> NMFMapView {
         let view = mapViewModel.mapView
@@ -21,11 +22,21 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ uiView: NMFMapView, context: Context) {
         if uiView.positionMode == .disabled {
             mapViewModel.focusLocation()
+            setUpMarker()
         }
     }
     
     func makeCoordinator() -> Coordinator {
         MapView.Coordinator(mapViewModel: mapViewModel)
+    }
+    
+    private func setUpMarker() {
+        let markerImage = NMFOverlayImage(name: markerImage)
+        mapViewModel.markerViewModel.forEach {
+            $0.marker.iconImage = markerImage
+            $0.marker.width = 40
+            $0.marker.height = 40
+        }
     }
     
     class Coordinator: NSObject {
