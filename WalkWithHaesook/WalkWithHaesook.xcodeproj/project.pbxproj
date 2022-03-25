@@ -18,6 +18,7 @@
 		4D48E1B127C1860900F15D7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D48E1B027C1860900F15D7E /* Assets.xcassets */; };
 		4D48E1B427C1860900F15D7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D48E1B227C1860900F15D7E /* LaunchScreen.storyboard */; };
 		4D48E1BC27C1868400F15D7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D48E1BB27C1868400F15D7E /* ContentView.swift */; };
+		4DCBB89127EDA2FB0010364D /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB89027EDA2FB0010364D /* CustomInfoWindow.swift */; };
 		4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134127CC26FD00D9442E /* FireStoreManager.swift */; };
 		4DD1134527CC272200D9442E /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134427CC272200D9442E /* FireStoreError.swift */; };
 		4DD1134827CC38EF00D9442E /* WalkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134727CC38EF00D9442E /* WalkRepository.swift */; };
@@ -43,6 +44,7 @@
 		4D48E1B327C1860900F15D7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D48E1B527C1860900F15D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D48E1BB27C1868400F15D7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4DCBB89027EDA2FB0010364D /* CustomInfoWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		4DD1134127CC26FD00D9442E /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		4DD1134427CC272200D9442E /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		4DD1134727CC38EF00D9442E /* WalkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkRepository.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				4D48E1BB27C1868400F15D7E /* ContentView.swift */,
 				4D244AA427CA1A5E00B436FD /* MapView.swift */,
+				4DCBB89027EDA2FB0010364D /* CustomInfoWindow.swift */,
 				4DE8021A27CF12AD00AD1E3C /* WalkTable.swift */,
 			);
 			path = View;
@@ -310,6 +313,7 @@
 				4D244AAE27CA1B9D00B436FD /* Walk.swift in Sources */,
 				4DD1134827CC38EF00D9442E /* WalkRepository.swift in Sources */,
 				4D244AA527CA1A5E00B436FD /* MapView.swift in Sources */,
+				4DCBB89127EDA2FB0010364D /* CustomInfoWindow.swift in Sources */,
 				4D244AA827CA1B0200B436FD /* LocationManager.swift in Sources */,
 				4DE8021B27CF12AD00AD1E3C /* WalkTable.swift in Sources */,
 				4DE8021D27D0B6B100AD1E3C /* MarkerViewModel.swift in Sources */,

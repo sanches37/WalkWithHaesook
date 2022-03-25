@@ -10,7 +10,7 @@ import NMapsMap
 
 struct MapView: UIViewRepresentable {
     @EnvironmentObject var mapViewModel: MapViewModel
-    let markerImage = "juicy_fish_veterinarian_icon"
+    private let markerImage = "juicy_fish_veterinarian_icon"
     
     func makeUIView(context: Context) -> NMFMapView {
         let view = mapViewModel.mapView
