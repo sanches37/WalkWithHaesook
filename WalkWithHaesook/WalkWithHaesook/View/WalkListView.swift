@@ -15,13 +15,13 @@ struct WalkListView: View {
             HStack() {
                 KFImage(URL(string: listViewModel.walk.thumnail))
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width / 3.5,
                            height: UIScreen.main.bounds.width / 3.5)
+                    .clipped()
                 VStack(alignment: .leading, spacing: 15) {
                     Text(listViewModel.walk.title)
-                        .fontWeight(.heavy)
-                        .font(.body)
+                        .font(.body.bold())
                         .foregroundColor(.black)
                     Text(listViewModel.distance)
                         .font(.body)

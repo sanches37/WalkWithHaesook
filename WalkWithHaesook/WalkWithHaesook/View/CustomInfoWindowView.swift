@@ -7,7 +7,7 @@
 
 import NMapsMap
 
-class CustomInfoWindowDataSource: NSObject, NMFOverlayImageDataSource {
+class CustomInfoWindowView: NSObject, NMFOverlayImageDataSource {
     enum Status {
         case selected
         case normal

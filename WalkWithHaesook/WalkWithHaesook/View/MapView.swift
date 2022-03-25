@@ -64,8 +64,8 @@ struct MapView: UIViewRepresentable {
     private func selectOverlay(infoWindow: NMFInfoWindow) {
         if let title = infoWindow.userInfo["title"] as? String,
            let marker = infoWindow.marker {
-            infoWindow.dataSource = CustomInfoWindowDataSource(title: title,
-                                                               status: .selected)
+            infoWindow.dataSource = CustomInfoWindowView(title: title,
+                                                         status: .selected)
             infoWindow.open(with: marker)
         }
         if let id = infoWindow.userInfo["id"] as? String {

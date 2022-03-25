@@ -47,7 +47,7 @@ class MapViewModel: ObservableObject {
     func UpdateInfoWindow(selectedInfoWindow: NMFInfoWindow? = nil) {
         markerViewModel.forEach {
             if $0.infoWindow != selectedInfoWindow {
-                $0.infoWindow.dataSource = CustomInfoWindowDataSource(title: $0.title)
+                $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title)
                 $0.infoWindow.invalidate()
             }
         }
@@ -64,14 +64,15 @@ class MapViewModel: ObservableObject {
                     lat: walkList[index].latLng.latitude,
                     lng: walkList[index].latLng.longitude)
                 guard let distance = userLocation?.distance(to: latLng) else {
-                    return ListViewModel(walk: walkList[index], latLng: latLng, distance: nil)
+                    return ListViewModel(walk: walkList[index],
+                                         latLng: latLng,
+                                         distance: nil)
                 }
-                return ListViewModel(walk: walkList[index], latLng: latLng, distance: String(distance))
+                return ListViewModel(walk: walkList[index],
+                                     latLng: latLng,
+                                     distance: String(distance))
             }
-            .sink(receiveValue: { listViewModel in
-                self.listViewModel = listViewModel
-            })
-//            .assign(to: \.listViewModel, on: self)
+            .assign(to: \.listViewModel, on: self)
             .store(in: &cancellables)
     }
     
