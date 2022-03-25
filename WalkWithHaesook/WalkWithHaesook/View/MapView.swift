@@ -23,8 +23,8 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ uiView: NMFMapView, context: Context) {
         if uiView.positionMode == .disabled {
             setUpMarker()
-            mapViewModel.focusLocation()
             mapViewModel.UpdateInfoWindow()
+            mapViewModel.focusLocation()
         }
     }
     
@@ -40,7 +40,8 @@ struct MapView: UIViewRepresentable {
             $0.marker.height = 40
             $0.marker.touchHandler = markerHandler()
             $0.infoWindow.touchHandler = markerHandler()
-            $0.infoWindow.userInfo = ["title": $0.title]
+            $0.infoWindow.userInfo = ["title": $0.title,
+                                      "id": $0.id ]
         }
     }
     
@@ -61,12 +62,14 @@ struct MapView: UIViewRepresentable {
     }
     
     private func selectOverlay(infoWindow: NMFInfoWindow) {
-        if let title = infoWindow.userInfo["title"] as? String {
+        if let title = infoWindow.userInfo["title"] as? String,
+           let marker = infoWindow.marker {
             infoWindow.dataSource = CustomInfoWindowDataSource(title: title,
                                                                status: .selected)
-        }
-        if let marker = infoWindow.marker {
             infoWindow.open(with: marker)
+        }
+        if let id = infoWindow.userInfo["id"] as? String {
+            mapViewModel.setUpListViewModel(id: id)
         }
     }
     
@@ -100,5 +103,6 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
 extension MapView.Coordinator: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         mapViewModel.UpdateInfoWindow()
+        mapViewModel.listViewModel = nil
     }
 }

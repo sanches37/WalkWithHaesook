@@ -15,7 +15,7 @@ class MapViewModel: ObservableObject {
     let mapView = NMFMapView()
     @Published var userLocation: NMGLatLng?
     @Published var permissionDenied = false
-    @Published var tableViewModel: [TableViewModel] = []
+    @Published var listViewModel: ListViewModel?
     @Published var markerViewModel: [MarkerViewModel] = []
     
     init() {
@@ -53,6 +53,25 @@ class MapViewModel: ObservableObject {
         }
     }
     
+    func setUpListViewModel(id: String) {
+        walkRepository.$walk
+            .combineLatest($userLocation)
+            .map { (walkList, userLocation) -> ListViewModel? in
+                guard let index = walkList.firstIndex(where: { $0.id == id }) else {
+                   return nil
+                }
+                let latLng = NMGLatLng(
+                    lat: walkList[index].latLng.latitude,
+                    lng: walkList[index].latLng.longitude)
+                guard let distance = userLocation?.distance(to: latLng) else {
+                    return ListViewModel(walk: walkList[index], latLng: latLng, distance: nil)
+                }
+                return ListViewModel(walk: walkList[index], latLng: latLng, distance: String(distance))
+            }
+            .assign(to: \.listViewModel, on: self)
+            .store(in: &cancellables)
+    }
+    
     private func setUpMarkerViewModel() {
         walkRepository.$walk
             .map { walkList -> [MarkerViewModel] in
@@ -69,25 +88,6 @@ class MapViewModel: ObservableObject {
                 }
             }
             .assign(to: \.markerViewModel, on: self)
-            .store(in: &cancellables)
-    }
-    
-    private func setUpTableViewModel(mapView: NMFMapView) {
-        walkRepository.$walk
-            .combineLatest($userLocation)
-            .map { (walkList, userLocation) -> [TableViewModel] in
-                walkList.compactMap { walk -> TableViewModel? in
-                    let latLng = NMGLatLng(
-                        lat: walk.latLng.latitude,
-                        lng: walk.latLng.longitude)
-                    guard let distance = userLocation?.distance(to: latLng) else { return nil }
-                    return TableViewModel(
-                        walk: walk,
-                        latLng: latLng,
-                        distance: String(distance))
-                }
-            }
-            .assign(to: \.tableViewModel, on: self)
             .store(in: &cancellables)
     }
 }

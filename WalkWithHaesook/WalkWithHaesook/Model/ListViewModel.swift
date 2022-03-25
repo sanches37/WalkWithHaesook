@@ -8,16 +8,16 @@
 import Foundation
 import NMapsMap
 
-struct TableViewModel: Identifiable {
+struct ListViewModel: Identifiable {
     let walk: Walk
     let latLng: NMGLatLng
     let distance: String
     let id: String
     
-    init(walk: Walk, latLng: NMGLatLng, distance: String) {
+    init(walk: Walk, latLng: NMGLatLng, distance: String?) {
         self.walk = walk
         self.latLng = latLng
-        self.distance = distance
+        self.distance = distance ?? ""
         self.id = walk.id ?? ""
     }
 }

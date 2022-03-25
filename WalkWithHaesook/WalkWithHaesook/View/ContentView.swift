@@ -23,14 +23,9 @@ struct ContentView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding()
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(mapViewModel.tableViewModel) { tableViewModel in
-                            WalkTable(tableViewModel: tableViewModel)
-                        }
-                    }
+                WalkList(listViewModel: mapViewModel.listViewModel)
                 }
-            }
+     
         }
         .alert(isPresented: $mapViewModel.permissionDenied) {
             let firstButton = Alert.Button.cancel((Text("취소")))
