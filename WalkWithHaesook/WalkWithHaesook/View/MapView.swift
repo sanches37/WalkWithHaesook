@@ -36,8 +36,34 @@ struct MapView: UIViewRepresentable {
             $0.marker.iconImage = markerImage
             $0.marker.width = 40
             $0.marker.height = 40
+            $0.marker.touchHandler = overlayHandler()
             $0.infoWindow.dataSource = CustomInfoWindowDataSource(title: $0.title)
-
+            $0.infoWindow.touchHandler = overlayHandler()
+            $0.infoWindow.userInfo = ["title": $0.title]
+        }
+    }
+    
+    private func overlayHandler() -> (NMFOverlay) -> Bool {
+        let handler = { (overlay: NMFOverlay) -> Bool in
+            if let marker = overlay as? NMFMarker,
+               let infoWindow = marker.infoWindow {
+                selectOverlay(infoWindow: infoWindow)
+            }
+            if let infoWindow = overlay as? NMFInfoWindow {
+                selectOverlay(infoWindow: infoWindow)
+            }
+            return true
+        }
+        return handler
+    }
+    
+    private func selectOverlay(infoWindow: NMFInfoWindow) {
+        if let title = infoWindow.userInfo["title"] as? String {
+            infoWindow.dataSource = CustomInfoWindowDataSource(title: title,
+                                                               status: .selected)
+        }
+        if let marker = infoWindow.marker {
+            infoWindow.open(with: marker)
         }
     }
     
