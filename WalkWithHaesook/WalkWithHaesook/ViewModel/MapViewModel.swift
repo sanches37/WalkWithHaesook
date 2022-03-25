@@ -27,7 +27,7 @@ class MapViewModel: ObservableObject {
         locationManager.locationSubject.sink { location in
             if let location = location {
                 self.userLocation = NMGLatLng(lat: location.coordinate.latitude,
-                                        lng: location.coordinate.longitude)
+                                              lng: location.coordinate.longitude)
             } else {
                 self.permissionDenied = true
             }
@@ -42,6 +42,15 @@ class MapViewModel: ObservableObject {
         cameraUpdate.animation = .easeIn
         cameraUpdate.animationDuration = 1
         mapView.moveCamera(cameraUpdate)
+    }
+    
+    func UpdateInfoWindow(selectedInfoWindow: NMFInfoWindow? = nil) {
+        markerViewModel.forEach {
+            if $0.infoWindow != selectedInfoWindow {
+                $0.infoWindow.dataSource = CustomInfoWindowDataSource(title: $0.title)
+                $0.infoWindow.invalidate()
+            }
+        }
     }
     
     private func setUpMarkerViewModel() {

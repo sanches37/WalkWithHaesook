@@ -16,13 +16,15 @@ struct MapView: UIViewRepresentable {
         let view = mapViewModel.mapView
         view.mapType = .basic
         view.addCameraDelegate(delegate: context.coordinator)
+        view.touchDelegate = context.coordinator
         return view
     }
     
     func updateUIView(_ uiView: NMFMapView, context: Context) {
         if uiView.positionMode == .disabled {
-            mapViewModel.focusLocation()
             setUpMarker()
+            mapViewModel.focusLocation()
+            mapViewModel.UpdateInfoWindow()
         }
     }
     
@@ -36,21 +38,22 @@ struct MapView: UIViewRepresentable {
             $0.marker.iconImage = markerImage
             $0.marker.width = 40
             $0.marker.height = 40
-            $0.marker.touchHandler = overlayHandler()
-            $0.infoWindow.dataSource = CustomInfoWindowDataSource(title: $0.title)
-            $0.infoWindow.touchHandler = overlayHandler()
+            $0.marker.touchHandler = markerHandler()
+            $0.infoWindow.touchHandler = markerHandler()
             $0.infoWindow.userInfo = ["title": $0.title]
         }
     }
     
-    private func overlayHandler() -> (NMFOverlay) -> Bool {
+    private func markerHandler() -> (NMFOverlay) -> Bool {
         let handler = { (overlay: NMFOverlay) -> Bool in
             if let marker = overlay as? NMFMarker,
                let infoWindow = marker.infoWindow {
                 selectOverlay(infoWindow: infoWindow)
+                mapViewModel.UpdateInfoWindow(selectedInfoWindow: infoWindow)
             }
             if let infoWindow = overlay as? NMFInfoWindow {
                 selectOverlay(infoWindow: infoWindow)
+                mapViewModel.UpdateInfoWindow(selectedInfoWindow: infoWindow)
             }
             return true
         }
@@ -91,5 +94,11 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
                 $0.infoWindow.close()
             }
         }
+    }
+}
+
+extension MapView.Coordinator: NMFMapViewTouchDelegate {
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        mapViewModel.UpdateInfoWindow()
     }
 }
