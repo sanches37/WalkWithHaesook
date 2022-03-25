@@ -70,7 +70,7 @@ class MapViewModel: ObservableObject {
                 }
                 return ListViewModel(walk: walkList[index],
                                      latLng: latLng,
-                                     distance: String(distance))
+                                     distance: distance.withMeter)
             }
             .assign(to: \.listViewModel, on: self)
             .store(in: &cancellables)
