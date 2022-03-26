@@ -6,15 +6,13 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct WalkListView: View {
     var listViewModel: ListViewModel?
     var body: some View {
         if let listViewModel = listViewModel {
             HStack() {
-                KFImage(URL(string: listViewModel.walk.thumnail))
-                    .resizable()
+                KFImageView(url: URL(string: listViewModel.walk.thumnail))
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width / 3.5,
                            height: UIScreen.main.bounds.width / 3.5)
