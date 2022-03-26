@@ -7,29 +7,39 @@
 
 import SwiftUI
 import NMapsMap
+import Combine
 
 struct MapView: UIViewRepresentable {
-    @EnvironmentObject var mapViewModel: MapViewModel
+    @ObservedObject var mapViewModel: MapViewModel
     private let markerImage = "juicy_fish_veterinarian_icon"
-    
+ 
     func makeUIView(context: Context) -> NMFMapView {
         let view = mapViewModel.mapView
         view.mapType = .basic
         view.addCameraDelegate(delegate: context.coordinator)
         view.touchDelegate = context.coordinator
+        setUp(context: context)
         return view
     }
     
-    func updateUIView(_ uiView: NMFMapView, context: Context) {
-        if uiView.positionMode == .disabled {
-            setUpMarker()
-            mapViewModel.UpdateInfoWindow()
-            mapViewModel.focusLocation()
-        }
-    }
+    func updateUIView(_ uiView: NMFMapView, context: Context) { }
     
     func makeCoordinator() -> Coordinator {
         MapView.Coordinator(mapViewModel: mapViewModel)
+    }
+    
+    private func setUp(context: Context) {
+        mapViewModel.$userLocation
+            .first { $0 != nil }
+            .sink { _ in
+                setUpMarker()
+                mapViewModel.UpdateInfoWindow()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                    mapViewModel.focusLocation()
+                })
+              
+            }
+            .store(in: &context.coordinator.cancellable)
     }
     
     private func setUpMarker() {
@@ -75,6 +85,7 @@ struct MapView: UIViewRepresentable {
     
     class Coordinator: NSObject {
         private let mapViewModel: MapViewModel
+        var cancellable = Set<AnyCancellable>()
         
         init(mapViewModel: MapViewModel) {
             self.mapViewModel = mapViewModel

@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var mapViewModel: MapViewModel
+    @ObservedObject var mapViewModel: MapViewModel
     var body: some View {
         ZStack {
-            MapView()
+            MapView(mapViewModel: mapViewModel)
+                .environmentObject(mapViewModel)
             VStack(spacing: .zero) {
                 Spacer()
                 Button(action: mapViewModel.focusLocation) {
                     Image(systemName: "scope")
                         .font(.body)
-                        .padding(10)
+                        .padding(13)
                         .background(Color.white)
                         .clipShape(Circle())
                 }
@@ -41,6 +42,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(mapViewModel: MapViewModel())
     }
 }
