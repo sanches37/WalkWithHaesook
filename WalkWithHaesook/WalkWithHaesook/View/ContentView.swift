@@ -10,31 +10,39 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var mapViewModel: MapViewModel
     var body: some View {
-        ZStack {
-            MapView(mapViewModel: mapViewModel)
-            VStack(spacing: .zero) {
-                Spacer()
-                Button(action: mapViewModel.focusLocation) {
-                    Image(systemName: "scope")
-                        .font(.body)
-                        .padding(13)
-                        .background(Color.white)
-                        .clipShape(Circle())
+        NavigationView {
+            ZStack {
+                MapView(mapViewModel: mapViewModel)
+                    .edgesIgnoringSafeArea(.vertical)
+                VStack(spacing: .zero) {
+                    Spacer()
+                    Button(action: mapViewModel.focusLocation) {
+                        Image(systemName: "scope")
+                            .font(.body)
+                            .padding(13)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding()
+                    if let listViewModel = mapViewModel.listViewModel {
+                        NavigationLink(destination: Text("detail")) {
+                            WalkListView(listViewModel: listViewModel)
+                        }
+                    }
                 }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding()
-                WalkListView(listViewModel: mapViewModel.listViewModel)
             }
-        }
-        .alert(isPresented: $mapViewModel.permissionDenied) {
-            let firstButton = Alert.Button.cancel((Text("취소")))
-            let secondButton = Alert.Button.default(Text("설정")) {
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            .navigationBarTitle("")
+            .alert(isPresented: $mapViewModel.permissionDenied) {
+                let firstButton = Alert.Button.cancel((Text("취소")))
+                let secondButton = Alert.Button.default(Text("설정")) {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }
+                return Alert(title: Text("위치 허용이 되지 않았습니다."),
+                             message: Text("설정에서 위치 허용을 해주세요"),
+                             primaryButton: firstButton,
+                             secondaryButton: secondButton)
             }
-            return Alert(title: Text("위치 허용이 되지 않았습니다."),
-                         message: Text("설정에서 위치 허용을 해주세요"),
-                         primaryButton: firstButton,
-                         secondaryButton: secondButton)
         }
     }
 }

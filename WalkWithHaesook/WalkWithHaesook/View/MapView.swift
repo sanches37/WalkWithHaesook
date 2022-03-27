@@ -31,12 +31,11 @@ struct MapView: UIViewRepresentable {
         mapViewModel.$userLocation
             .first { $0 != nil }
             .sink { _ in
-                setUpMarker()
-                mapViewModel.UpdateInfoWindow()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    setUpMarker()
+                    mapViewModel.UpdateInfoWindow()
                     mapViewModel.focusLocation()
-                })
-              
+                }
             }
             .store(in: &context.coordinator.cancellable)
     }
