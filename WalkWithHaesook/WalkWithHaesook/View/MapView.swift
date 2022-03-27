@@ -15,7 +15,6 @@ struct MapView: UIViewRepresentable {
  
     func makeUIView(context: Context) -> NMFMapView {
         let view = mapViewModel.mapView
-        view.mapType = .basic
         view.addCameraDelegate(delegate: context.coordinator)
         view.touchDelegate = context.coordinator
         setUp(context: context)

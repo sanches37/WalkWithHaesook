@@ -12,7 +12,6 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             MapView(mapViewModel: mapViewModel)
-                .environmentObject(mapViewModel)
             VStack(spacing: .zero) {
                 Spacer()
                 Button(action: mapViewModel.focusLocation) {
