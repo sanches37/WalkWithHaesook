@@ -17,11 +17,10 @@ class DetailViewModel: ObservableObject {
     
     init(mapViewModel: MapViewModel) {
         self.mapViewModel = mapViewModel
-        
         setUp()
     }
     
-    func setUp() {
+    private func setUp() {
         mapViewModel.walkRepository.$walk
             .combineLatest( mapViewModel.$listViewModel)
             .sink { walkList, listViewModel in

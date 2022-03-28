@@ -10,9 +10,9 @@ import Combine
 
 class MapViewModel: ObservableObject {
     let walkRepository = WalkRepository()
+    let mapView = NMFMapView()
     private let locationManager = LocationManager()
     private var cancellables = Set<AnyCancellable>()
-    let mapView = NMFMapView()
     @Published var userLocation: NMGLatLng?
     @Published var permissionDenied = false
     @Published var listViewModel: ListViewModel?
