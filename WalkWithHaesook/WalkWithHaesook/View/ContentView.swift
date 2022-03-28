@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var mapViewModel: MapViewModel
+    @EnvironmentObject var detailViewModel: DetailViewModel
     var body: some View {
         NavigationView {
             ZStack {
@@ -26,11 +27,13 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                     if let listViewModel = mapViewModel.listViewModel {
-                        NavigationLink(destination: DetailView()) {
-                            ListView(listViewModel: listViewModel)
+                        NavigationLink(
+                            destination: DetailView(detailViewModel: detailViewModel)) {
+                                ListView(listViewModel: listViewModel)
                         }
                     }
                 }
+                
             }
             .navigationBarTitle("", displayMode: .inline)
             .alert(isPresented: $mapViewModel.permissionDenied) {

@@ -9,7 +9,7 @@ import NMapsMap
 import Combine
 
 class MapViewModel: ObservableObject {
-    private let walkRepository = WalkRepository()
+    let walkRepository = WalkRepository()
     private let locationManager = LocationManager()
     private var cancellables = Set<AnyCancellable>()
     let mapView = NMFMapView()

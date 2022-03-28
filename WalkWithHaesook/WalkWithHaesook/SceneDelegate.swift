@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         let mapViewModel = MapViewModel()
         let contentView = ContentView(mapViewModel: mapViewModel)
+            .environmentObject(DetailViewModel(mapViewModel: mapViewModel))
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         self.window?.rootViewController = UIHostingController(rootView: contentView)

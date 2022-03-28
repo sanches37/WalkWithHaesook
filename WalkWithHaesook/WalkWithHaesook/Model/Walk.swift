@@ -13,4 +13,6 @@ struct Walk: Decodable {
     let title: String
     let latLng: GeoPoint
     let thumnail: String
+    let video: String
+    let description: String
 }

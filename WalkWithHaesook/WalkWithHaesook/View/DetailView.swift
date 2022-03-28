@@ -6,22 +6,17 @@
 //
 
 import SwiftUI
-import AVKit
 
 struct DetailView: View {
-    @State var player = AVPlayer(url: URL(string: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4")!)
-    
+    var detailViewModel: DetailViewModel
     var body: some View {
         VStack {
-            PlayerView(player: $player)
-                .frame(height: UIScreen.main.bounds.height / 1.5)
+            PlayerView(player: detailViewModel.video)
+                .frame(height: UIScreen.main.bounds.height / 1.35)
+            Text(detailViewModel.description ?? "")
+                .padding(.horizontal)
             Spacer()
         }
-    }
-}
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView()
+        .navigationBarTitle(detailViewModel.title ?? "")
     }
 }
