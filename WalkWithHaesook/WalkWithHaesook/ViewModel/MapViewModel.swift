@@ -65,11 +65,9 @@ class MapViewModel: ObservableObject {
                     lng: walkList[index].latLng.longitude)
                 guard let distance = userLocation?.distance(to: latLng) else {
                     return ListViewModel(walk: walkList[index],
-                                         latLng: latLng,
                                          distance: nil)
                 }
                 return ListViewModel(walk: walkList[index],
-                                     latLng: latLng,
                                      distance: distance.withMeter)
             }
             .assign(to: \.listViewModel, on: self)

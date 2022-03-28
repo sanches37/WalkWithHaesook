@@ -12,13 +12,13 @@ struct ListView: View {
     var body: some View {
         if let listViewModel = listViewModel {
             HStack() {
-                KFImageView(url: URL(string: listViewModel.walk.thumnail))
+                KFImageView(url: URL(string: listViewModel.thumnail))
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width / 3.5,
                            height: UIScreen.main.bounds.width / 3.5)
                     .clipped()
                 VStack(alignment: .leading, spacing: 15) {
-                    Text(listViewModel.walk.title)
+                    Text(listViewModel.title)
                         .font(.body.bold())
                         .foregroundColor(.black)
                     Text(listViewModel.distance)

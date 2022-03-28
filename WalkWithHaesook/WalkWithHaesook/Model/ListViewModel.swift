@@ -6,17 +6,16 @@
 //
 
 import Foundation
-import NMapsMap
 
 struct ListViewModel: Identifiable {
-    let walk: Walk
-    let latLng: NMGLatLng
+    let thumnail: String
+    let title: String
     let distance: String
     let id: String
     
-    init(walk: Walk, latLng: NMGLatLng, distance: String?) {
-        self.walk = walk
-        self.latLng = latLng
+    init(walk: Walk, distance: String?) {
+        self.thumnail = walk.thumnail
+        self.title = walk.title
         self.distance = distance ?? ""
         self.id = walk.id ?? ""
     }
