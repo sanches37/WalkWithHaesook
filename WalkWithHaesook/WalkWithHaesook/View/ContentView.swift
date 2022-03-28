@@ -28,12 +28,16 @@ struct ContentView: View {
                     .padding()
                     if let listViewModel = mapViewModel.listViewModel {
                         NavigationLink(
-                            destination: DetailView(detailViewModel: detailViewModel)) {
-                                ListView(listViewModel: listViewModel)
-                        }
+                            destination: DetailView(detailViewModel: detailViewModel)
+                                .onDisappear {
+                                    detailViewModel.video?.replaceCurrentItem(with: nil)
+                                    mapViewModel.UpdateInfoWindow()
+                                    mapViewModel.listViewModel = nil
+                                }) {
+                                    ListView(listViewModel: listViewModel)
+                                }
                     }
                 }
-                
             }
             .navigationBarTitle("", displayMode: .inline)
             .alert(isPresented: $mapViewModel.permissionDenied) {
