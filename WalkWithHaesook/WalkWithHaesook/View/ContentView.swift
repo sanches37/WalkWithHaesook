@@ -26,13 +26,13 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                     if let listViewModel = mapViewModel.listViewModel {
-                        NavigationLink(destination: Text("detail")) {
-                            WalkListView(listViewModel: listViewModel)
+                        NavigationLink(destination: DetailView()) {
+                            ListView(listViewModel: listViewModel)
                         }
                     }
                 }
             }
-            .navigationBarTitle("")
+            .navigationBarTitle("", displayMode: .inline)
             .alert(isPresented: $mapViewModel.permissionDenied) {
                 let firstButton = Alert.Button.cancel((Text("취소")))
                 let secondButton = Alert.Button.default(Text("설정")) {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WalkListView: View {
+struct ListView: View {
     var listViewModel: ListViewModel?
     var body: some View {
         if let listViewModel = listViewModel {

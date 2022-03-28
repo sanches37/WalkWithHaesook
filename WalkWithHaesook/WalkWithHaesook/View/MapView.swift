@@ -27,7 +27,7 @@ struct MapView: UIViewRepresentable {
         MapView.Coordinator(mapViewModel: mapViewModel)
     }
     
-    private func setUp(context: Context) {
+    func setUp(context: Context) {
         mapViewModel.$userLocation
             .first { $0 != nil }
             .sink { _ in
