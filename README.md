@@ -37,4 +37,4 @@
 <br/>
 
 마커 이미지 저작권
-<a href="https://www.flaticon.com/kr/free-icons/" title="수의사 아이콘">수의사 아이콘  제작자: juicy_fish - Flaticon</a>
+<a href="https://www.flaticon.com/kr/premium-icon/veterinarian_5695709?term=%EB%A7%88%EC%BB%A4&related_id=5695709">수의사 아이콘  제작자: juicy_fish - Flaticon</a>
