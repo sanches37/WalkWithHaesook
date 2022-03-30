@@ -15,6 +15,7 @@ struct MapView: UIViewRepresentable {
  
     func makeUIView(context: Context) -> NMFMapView {
         let view = mapViewModel.mapView
+        view.zoomLevel = 11
         view.addCameraDelegate(delegate: context.coordinator)
         view.touchDelegate = context.coordinator
         setUp(context: context)
@@ -74,6 +75,7 @@ struct MapView: UIViewRepresentable {
            let marker = infoWindow.marker {
             infoWindow.dataSource = CustomInfoWindowView(title: title,
                                                          status: .selected)
+            infoWindow.zIndex = 1
             infoWindow.open(with: marker)
         }
         if let id = infoWindow.userInfo["id"] as? String {

@@ -12,7 +12,7 @@ struct DetailView: View {
     var body: some View {
         VStack {
             PlayerView(player: detailViewModel.video)
-                .frame(height: UIScreen.main.bounds.height / 1.35)
+                .frame(height: UIScreen.main.bounds.height / 1.3)
             Text(detailViewModel.description ?? "")
                 .padding(.horizontal)
             Spacer()

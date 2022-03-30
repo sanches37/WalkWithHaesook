@@ -17,7 +17,7 @@ struct KFImageView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIImageView, context: Context) {
         guard let url = url else { return }
-        let resize = DownsamplingImageProcessor(size: CGSize(width: 50, height: 50))
+        let resize = DownsamplingImageProcessor(size: CGSize(width: 175, height: 175))
         uiView.kf.indicatorType = .activity
         uiView.kf.setImage(with: url, options: [.processor(resize)])
     }

@@ -48,6 +48,7 @@ class MapViewModel: ObservableObject {
         markerViewModel.forEach {
             if $0.infoWindow != selectedInfoWindow {
                 $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title)
+                $0.infoWindow.zIndex = .zero
                 $0.infoWindow.invalidate()
             }
         }
