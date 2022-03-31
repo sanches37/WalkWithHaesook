@@ -23,7 +23,7 @@ struct PlayButtonView: View {
             }
         } label: {
             Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
-                .font(.title)
+                .font(.largeTitle)
                 .foregroundColor(.white)
                 .padding()
         }
