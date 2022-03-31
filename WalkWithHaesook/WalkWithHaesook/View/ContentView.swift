@@ -42,7 +42,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationBarTitle("", displayMode: .inline)
+            .applyContentViewTitle()
             .alert(isPresented: $mapViewModel.permissionDenied) {
                 let firstButton = Alert.Button.cancel((Text("취소")))
                 let secondButton = Alert.Button.default(Text("설정")) {
@@ -53,6 +53,18 @@ struct ContentView: View {
                              primaryButton: firstButton,
                              secondaryButton: secondButton)
             }
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func applyContentViewTitle() -> some View {
+        if #available(iOS 14.0, *) {
+            self.navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
+        } else {
+            self.navigationBarTitle("", displayMode: .inline)
         }
     }
 }

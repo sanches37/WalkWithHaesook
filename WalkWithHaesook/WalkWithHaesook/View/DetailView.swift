@@ -17,6 +17,17 @@ struct DetailView: View {
                 .padding(.horizontal)
             Spacer()
         }
-        .navigationBarTitle(detailViewModel.title ?? "")
+        .applyDetailViewTitle(detailViewModel.title ?? "")
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func applyDetailViewTitle(_ title: String) -> some View {
+        if #available(iOS 14.0, *) {
+            self.navigationTitle(title)
+        } else {
+            self.navigationBarTitle(title)
+        }
     }
 }
