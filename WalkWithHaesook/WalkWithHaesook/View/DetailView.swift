@@ -9,15 +9,33 @@ import SwiftUI
 
 struct DetailView: View {
     var detailViewModel: DetailViewModel
+    @State var isPlaying = false
+    @State var showPlayButton = false
     var body: some View {
         VStack {
-            PlayerView(player: detailViewModel.video)
-                .frame(height: UIScreen.main.bounds.height / 1.3)
+            ZStack {
+                PlayerView(player: detailViewModel.video)
+                    .frame(height: UIScreen.main.bounds.height / 1.3)
+                if self.showPlayButton {
+                    PlayButtonView(player: detailViewModel.video,
+                                   isPlaying: $isPlaying)
+                }
+            }
+            .onTapGesture {
+                self.showPlayButton.toggle()
+            }
             Text(detailViewModel.description ?? "")
                 .padding(.horizontal)
             Spacer()
         }
         .applyDetailViewTitle(detailViewModel.title ?? "")
+        .onAppear {
+            detailViewModel.video?.play()
+            detailViewModel.video == nil ? (isPlaying = false) : (isPlaying = true)
+        }
+        .onDisappear {
+            detailViewModel.video?.replaceCurrentItem(with: nil)
+        }
     }
 }
 

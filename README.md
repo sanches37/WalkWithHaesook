@@ -12,7 +12,7 @@
 <br/>
 
 ## Step1 - Firestore 코드 구현 및 CLLocation을 이용한 사용자 위치 표시
-* FireStore에서 가져온 Repository를 ViewModel에서 가공 후 View에서 적용
+* Firestore에서 가져온 Repository를 ViewModel에서 가공 후 View에서 적용
 * 위치 거부시 alert을 통해 설정으로 이동할 수 있도록 구현
 <br/>
 

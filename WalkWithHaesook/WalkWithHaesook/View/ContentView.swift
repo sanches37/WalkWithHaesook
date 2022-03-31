@@ -29,16 +29,12 @@ struct ContentView: View {
                     if let listViewModel = mapViewModel.listViewModel {
                         NavigationLink(
                             destination: DetailView(detailViewModel: detailViewModel)
-                                .onAppear {
-                                    detailViewModel.video?.play()
-                                }
                                 .onDisappear {
-                                    detailViewModel.video?.replaceCurrentItem(with: nil)
                                     mapViewModel.UpdateInfoWindow()
                                     mapViewModel.listViewModel = nil
                                 }) {
-                            ListView(listViewModel: listViewModel)
-                        }
+                                    ListView(listViewModel: listViewModel)
+                                }
                     }
                 }
             }

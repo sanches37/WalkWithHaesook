@@ -23,6 +23,7 @@
 		4D537A6427F0CDDB00BBF7A5 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */; };
 		4D537A6627F0E24D00BBF7A5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D537A6527F0E24D00BBF7A5 /* DetailView.swift */; };
 		4D738BB227F1C290003686FC /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D738BB127F1C290003686FC /* DetailViewModel.swift */; };
+		4D9C373327F5864E00A50E5D /* PlayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9C373227F5864E00A50E5D /* PlayButtonView.swift */; };
 		4DCBB89127EDA2FB0010364D /* CustomInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBB89027EDA2FB0010364D /* CustomInfoWindowView.swift */; };
 		4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134127CC26FD00D9442E /* FireStoreManager.swift */; };
 		4DD1134527CC272200D9442E /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134427CC272200D9442E /* FireStoreError.swift */; };
@@ -54,6 +55,7 @@
 		4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		4D537A6527F0E24D00BBF7A5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		4D738BB127F1C290003686FC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		4D9C373227F5864E00A50E5D /* PlayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonView.swift; sourceTree = "<group>"; };
 		4DCBB89027EDA2FB0010364D /* CustomInfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInfoWindowView.swift; sourceTree = "<group>"; };
 		4DD1134127CC26FD00D9442E /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		4DD1134427CC272200D9442E /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				4D537A5F27EF45B100BBF7A5 /* KFImageView.swift */,
 				4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */,
 				4D537A6527F0E24D00BBF7A5 /* DetailView.swift */,
+				4D9C373227F5864E00A50E5D /* PlayButtonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				4DE8021B27CF12AD00AD1E3C /* ListView.swift in Sources */,
 				4DE8021D27D0B6B100AD1E3C /* MarkerViewModel.swift in Sources */,
 				4D48E1AA27C1860800F15D7E /* SceneDelegate.swift in Sources */,
+				4D9C373327F5864E00A50E5D /* PlayButtonView.swift in Sources */,
 				4D48E1BC27C1868400F15D7E /* ContentView.swift in Sources */,
 				4D244AAB27CA1B5500B436FD /* MapViewModel.swift in Sources */,
 				4D537A6027EF45B100BBF7A5 /* KFImageView.swift in Sources */,
