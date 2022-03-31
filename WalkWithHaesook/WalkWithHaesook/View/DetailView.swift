@@ -15,7 +15,8 @@ struct DetailView: View {
         VStack {
             ZStack {
                 PlayerView(player: detailViewModel.video)
-                    .frame(height: UIScreen.main.bounds.height / 1.3)
+                    .frame(width: UIScreen.main.bounds.width,
+                           height: UIScreen.main.bounds.height / 1.3)
                 if self.showPlayButton {
                     PlayButtonView(player: detailViewModel.video,
                                    isPlaying: $isPlaying)

@@ -16,7 +16,17 @@ struct PlayerView: UIViewControllerRepresentable {
         controller.showsPlaybackControls = false
         controller.videoGravity = .resizeAspectFill
         controller.player = player
+        repeatPlayer(controller)
         return controller
+    }
+    
+    private func repeatPlayer(_ controller: AVPlayerViewController) {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+            object: nil, queue: nil) { _ in
+            controller.player?.seek(to: .zero)
+            controller.player?.play()
+        }
     }
     
     func updateUIViewController(_ uiViewController: AVPlayerViewController,
