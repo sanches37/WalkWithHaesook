@@ -11,7 +11,7 @@
 ![WalkWithHaesook mp4](https://user-images.githubusercontent.com/84059338/160789687-deae81b5-2c94-4577-9cd1-6c2a0092ac1e.gif)
 <br/>
 
-## Step1 - FireSotre 코드 구현 및 CLLocation을 이용한 사용자 위치 표시
+## Step1 - Firestore 코드 구현 및 CLLocation을 이용한 사용자 위치 표시
 * FireStore에서 가져온 Repository를 ViewModel에서 가공 후 View에서 적용
 * 위치 거부시 alert을 통해 설정으로 이동할 수 있도록 구현
 <br/>
@@ -30,7 +30,7 @@
 * Combine
 * CLLocation
 * AVKit
-* FireStore
+* Firestore
 * 네이버 지도 SDK
 * Kingfisher
 * SwiftLint
