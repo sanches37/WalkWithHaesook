@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    var detailViewModel: DetailViewModel
+    @EnvironmentObject var detailViewModel: DetailViewModel
     @State var isPlaying = false
     @State var showPlayButton = false
     var body: some View {

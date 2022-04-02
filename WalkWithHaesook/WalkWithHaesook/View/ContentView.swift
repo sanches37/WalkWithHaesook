@@ -28,7 +28,7 @@ struct ContentView: View {
                     .padding()
                     if let listViewModel = mapViewModel.listViewModel {
                         NavigationLink(
-                            destination: DetailView(detailViewModel: detailViewModel)
+                            destination: DetailView()
                                 .onDisappear {
                                     mapViewModel.UpdateInfoWindow()
                                     mapViewModel.listViewModel = nil
