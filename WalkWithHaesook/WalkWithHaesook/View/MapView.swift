@@ -12,7 +12,7 @@ import Combine
 struct MapView: UIViewRepresentable {
     @ObservedObject var mapViewModel: MapViewModel
     private let markerImage = "juicy_fish_veterinarian_icon"
- 
+    
     func makeUIView(context: Context) -> NMFMapView {
         let view = mapViewModel.mapView
         view.zoomLevel = 11
@@ -29,39 +29,37 @@ struct MapView: UIViewRepresentable {
     }
     
     private func setUp(context: Context) {
-        mapViewModel.$userLocation
-            .first { $0 != nil }
-            .sink { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                    setUpMarker()
-                    updateInfoWindow(context: context)
-                    mapViewModel.focusLocation()
+        setUpMarker(context: context)
+        updateInfoWindow(context: context)
+        mapViewModel.focusLocation()
+    }
+    
+    private func setUpMarker(context: Context) {
+        let markerImage = NMFOverlayImage(name: markerImage)
+        mapViewModel.$markerViewModel
+            .first { $0.isEmpty == false }
+            .sink {
+                $0.forEach {
+                    $0.marker.iconImage = markerImage
+                    $0.marker.width = 40
+                    $0.marker.height = 40
+                    $0.marker.touchHandler = markerHandler()
+                    $0.infoWindow.touchHandler = markerHandler()
+                    $0.infoWindow.userInfo = ["id": $0.id ]
                 }
             }
             .store(in: &context.coordinator.cancellable)
     }
     
-    private func setUpMarker() {
-        let markerImage = NMFOverlayImage(name: markerImage)
-        mapViewModel.markerViewModel.forEach {
-            $0.marker.iconImage = markerImage
-            $0.marker.width = 40
-            $0.marker.height = 40
-            $0.marker.touchHandler = markerHandler()
-            $0.infoWindow.touchHandler = markerHandler()
-            $0.infoWindow.userInfo = ["title": $0.title,
-                                      "id": $0.id ]
-        }
-    }
-    
     private func updateInfoWindow(context: Context) {
         mapViewModel.$markerViewModel
+            .first { $0.isEmpty == false }
             .combineLatest(mapViewModel.$selectedInfoWindow)
             .sink { (markerViewModel, selectedInfoWindow) in
                 markerViewModel.forEach {
                     if $0.infoWindow == selectedInfoWindow {
                         $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title,
-                                                                     status: .selected)
+                                                                        status: .selected)
                         $0.infoWindow.zIndex = 1
                         $0.infoWindow.invalidate()
                         
