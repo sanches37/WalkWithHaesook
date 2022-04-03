@@ -17,10 +17,12 @@ class MapViewModel: ObservableObject {
     @Published var permissionDenied = false
     @Published var listViewModel: ListViewModel?
     @Published var markerViewModel: [MarkerViewModel] = []
+    @Published var selectedInfoWindow: NMFInfoWindow?
     
     init() {
         getUserLocation()
         setUpMarkerViewModel()
+        setUpListViewModel()
     }
     
     private func getUserLocation() {
@@ -44,21 +46,12 @@ class MapViewModel: ObservableObject {
         mapView.moveCamera(cameraUpdate)
     }
     
-    func UpdateInfoWindow(selectedInfoWindow: NMFInfoWindow? = nil) {
-        markerViewModel.forEach {
-            if $0.infoWindow != selectedInfoWindow {
-                $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title)
-                $0.infoWindow.zIndex = .zero
-                $0.infoWindow.invalidate()
-            }
-        }
-    }
-    
-    func setUpListViewModel(id: String) {
+    private func setUpListViewModel() {
         walkRepository.$walk
-            .combineLatest($userLocation.first())
-            .map { (walkList, userLocation) -> ListViewModel? in
-                guard let index = walkList.firstIndex(where: { $0.id == id }) else {
+            .combineLatest($userLocation, $selectedInfoWindow)
+            .map { (walkList, userLocation, selectedInfoWindow) -> ListViewModel? in
+                guard let id = selectedInfoWindow?.userInfo["id"] as? String,
+                      let index = walkList.firstIndex(where: { $0.id == id }) else {
                    return nil
                 }
                 let latLng = NMGLatLng(

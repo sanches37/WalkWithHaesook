@@ -22,19 +22,19 @@ struct MapView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: NMFMapView, context: Context) { }
+    func updateUIView(_ uiView: NMFMapView, context: Context) {}
     
     func makeCoordinator() -> Coordinator {
         MapView.Coordinator(mapViewModel: mapViewModel)
     }
     
-    func setUp(context: Context) {
+    private func setUp(context: Context) {
         mapViewModel.$userLocation
             .first { $0 != nil }
             .sink { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     setUpMarker()
-                    mapViewModel.UpdateInfoWindow()
+                    UpdateInfoWindow(context: context)
                     mapViewModel.focusLocation()
                 }
             }
@@ -51,36 +51,43 @@ struct MapView: UIViewRepresentable {
             $0.infoWindow.touchHandler = markerHandler()
             $0.infoWindow.userInfo = ["title": $0.title,
                                       "id": $0.id ]
+            $0.infoWindow.open(with: $0.marker)
         }
+    }
+    
+    private func UpdateInfoWindow(context: Context) {
+        mapViewModel.$markerViewModel
+            .combineLatest(mapViewModel.$selectedInfoWindow)
+            .sink { (markerViewModel, selectedInfoWindow) in
+                markerViewModel.forEach {
+                    if $0.infoWindow == selectedInfoWindow {
+                        $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title,
+                                                                     status: .selected)
+                        $0.infoWindow.zIndex = 1
+                        $0.infoWindow.invalidate()
+                        
+                    } else {
+                        $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title)
+                        $0.infoWindow.zIndex = .zero
+                        $0.infoWindow.invalidate()
+                    }
+                }
+            }
+            .store(in: &context.coordinator.cancellable)
     }
     
     private func markerHandler() -> (NMFOverlay) -> Bool {
         let handler = { (overlay: NMFOverlay) -> Bool in
             if let marker = overlay as? NMFMarker,
                let infoWindow = marker.infoWindow {
-                selectOverlay(infoWindow: infoWindow)
-                mapViewModel.UpdateInfoWindow(selectedInfoWindow: infoWindow)
+                mapViewModel.selectedInfoWindow = infoWindow
             }
             if let infoWindow = overlay as? NMFInfoWindow {
-                selectOverlay(infoWindow: infoWindow)
-                mapViewModel.UpdateInfoWindow(selectedInfoWindow: infoWindow)
+                mapViewModel.selectedInfoWindow = infoWindow
             }
             return true
         }
         return handler
-    }
-    
-    private func selectOverlay(infoWindow: NMFInfoWindow) {
-        if let title = infoWindow.userInfo["title"] as? String,
-           let marker = infoWindow.marker {
-            infoWindow.dataSource = CustomInfoWindowView(title: title,
-                                                         status: .selected)
-            infoWindow.zIndex = 1
-            infoWindow.open(with: marker)
-        }
-        if let id = infoWindow.userInfo["id"] as? String {
-            mapViewModel.setUpListViewModel(id: id)
-        }
     }
     
     class Coordinator: NSObject {
@@ -113,7 +120,7 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
 
 extension MapView.Coordinator: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        mapViewModel.UpdateInfoWindow()
+        mapViewModel.selectedInfoWindow = nil
         mapViewModel.listViewModel = nil
     }
 }

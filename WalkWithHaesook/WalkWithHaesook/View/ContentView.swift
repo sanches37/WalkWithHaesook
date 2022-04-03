@@ -30,7 +30,7 @@ struct ContentView: View {
                         NavigationLink(
                             destination: DetailView()
                                 .onDisappear {
-                                    mapViewModel.UpdateInfoWindow()
+                                    mapViewModel.selectedInfoWindow = nil
                                     mapViewModel.listViewModel = nil
                                 }) {
                                     ListView(listViewModel: listViewModel)
