@@ -18,13 +18,12 @@ class MapViewModel: ObservableObject {
     @Published var focusLocation: NMGLatLng?
     @Published var listViewModel: [ListViewModel] = []
     @Published var markerViewModel: [MarkerViewModel] = []
-    @Published var updateNMFMapView: NMFMapView?
+    @Published var updateMapView: NMFMapView?
     @Published var selectedInfoWindow: NMFInfoWindow?
     @Published var selectedListViewModel: ListViewModel?
     
     init() {
         getUserLocation()
-        setUpFocusLocation()
         setUpListViewModel()
         setUpMarkerViewModel()
         setUpSelectedListViewModel()
@@ -42,22 +41,9 @@ class MapViewModel: ObservableObject {
         .store(in: &cancellables)
     }
     
-    private func setUpFocusLocation() {
-        $focusLocation
-            .sink {
-                guard let focusLocation = $0 else { return }
-                self.mapView.positionMode = .direction
-                let cameraUpdate = NMFCameraUpdate(scrollTo: focusLocation)
-                cameraUpdate.animation = .easeIn
-                cameraUpdate.animationDuration = 1
-                self.mapView.moveCamera(cameraUpdate)
-            }
-            .store(in: &cancellables)
-    }
-    
     private func setUpListViewModel() {
         walkRepository.$walk
-            .combineLatest($userLocation, $updateNMFMapView)
+            .combineLatest($userLocation, $updateMapView)
             .map { (walkList, userLocation, mapView) -> [ListViewModel] in
                 walkList.filter {
                     let latLng = NMGLatLng(

@@ -18,7 +18,7 @@ struct MapView: UIViewRepresentable {
         view.zoomLevel = 11
         view.addCameraDelegate(delegate: context.coordinator)
         view.touchDelegate = context.coordinator
-        setUp(context: context)
+        setUp(context: context, mapView: view)
         return view
     }
     
@@ -28,8 +28,9 @@ struct MapView: UIViewRepresentable {
         MapView.Coordinator(mapViewModel: mapViewModel)
     }
     
-    private func setUp(context: Context) {
+    private func setUp(context: Context, mapView: NMFMapView) {
         setUpMarker(context: context)
+        setUpFocusLocation(context: context, mapView: mapView)
         updateFocusLocation(context: context)
         updateInfoWindow(context: context)
     }
@@ -47,6 +48,19 @@ struct MapView: UIViewRepresentable {
                     $0.infoWindow.touchHandler = markerHandler()
                     $0.infoWindow.userInfo = ["id": $0.id ]
                 }
+            }
+            .store(in: &context.coordinator.cancellable)
+    }
+    
+    private func setUpFocusLocation(context: Context, mapView: NMFMapView) {
+        mapViewModel.$focusLocation
+            .sink {
+                guard let focusLocation = $0 else { return }
+                mapView.positionMode = .direction
+                let cameraUpdate = NMFCameraUpdate(scrollTo: focusLocation)
+                cameraUpdate.animation = .easeIn
+                cameraUpdate.animationDuration = 1
+                mapView.moveCamera(cameraUpdate)
             }
             .store(in: &context.coordinator.cancellable)
     }
@@ -109,7 +123,7 @@ struct MapView: UIViewRepresentable {
 extension MapView.Coordinator: NMFMapViewCameraDelegate {
     func mapViewCameraIdle(_ mapView: NMFMapView) {
         updateMarkers(mapView: mapView)
-        mapViewModel.updateNMFMapView = mapView
+        mapViewModel.updateMapView = mapView
     }
     
     private func updateMarkers(mapView: NMFMapView) {

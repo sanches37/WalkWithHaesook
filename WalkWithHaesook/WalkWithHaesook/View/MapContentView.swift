@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MapContentView: View {
     @ObservedObject var mapViewModel: MapViewModel
     @EnvironmentObject var detailViewModel: DetailViewModel
     var body: some View {
@@ -69,6 +69,6 @@ extension View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(mapViewModel: MapViewModel())
+        MapContentView(mapViewModel: MapViewModel())
     }
 }
