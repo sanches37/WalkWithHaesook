@@ -15,14 +15,17 @@ class MapViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var userLocation: NMGLatLng?
     @Published var permissionDenied = false
-    @Published var listViewModel: ListViewModel?
+    @Published var listViewModel: [ListViewModel] = []
     @Published var markerViewModel: [MarkerViewModel] = []
+    @Published var updateNMFMapView: NMFMapView?
     @Published var selectedInfoWindow: NMFInfoWindow?
+    @Published var selectedListViewModel: ListViewModel?
     
     init() {
         getUserLocation()
-        setUpMarkerViewModel()
         setUpListViewModel()
+        setUpMarkerViewModel()
+        setUpSelectedListViewModel()
     }
     
     private func getUserLocation() {
@@ -48,21 +51,24 @@ class MapViewModel: ObservableObject {
     
     private func setUpListViewModel() {
         walkRepository.$walk
-            .combineLatest($userLocation, $selectedInfoWindow)
-            .map { (walkList, userLocation, selectedInfoWindow) -> ListViewModel? in
-                guard let id = selectedInfoWindow?.userInfo["id"] as? String,
-                      let index = walkList.firstIndex(where: { $0.id == id }) else {
-                   return nil
+            .combineLatest($userLocation, $updateNMFMapView)
+            .map { (walkList, userLocation, mapView) -> [ListViewModel] in
+                walkList.filter {
+                    let latLng = NMGLatLng(
+                        lat: $0.latLng.latitude,
+                        lng: $0.latLng.longitude)
+                    guard let mapView = mapView else { return false }
+                    return mapView.contentBounds.hasPoint(latLng)
                 }
-                let latLng = NMGLatLng(
-                    lat: walkList[index].latLng.latitude,
-                    lng: walkList[index].latLng.longitude)
-                guard let distance = userLocation?.distance(to: latLng) else {
-                    return ListViewModel(walk: walkList[index],
-                                         distance: nil)
+                .map { walk -> ListViewModel in
+                    let latLng = NMGLatLng(
+                        lat: walk.latLng.latitude,
+                        lng: walk.latLng.longitude)
+                    guard let distance = userLocation?.distance(to: latLng) else {
+                        return ListViewModel(walk: walk, distance: nil)
+                    }
+                    return ListViewModel(walk: walk, distance: distance.withMeter)
                 }
-                return ListViewModel(walk: walkList[index],
-                                     distance: distance.withMeter)
             }
             .assign(to: \.listViewModel, on: self)
             .store(in: &cancellables)
@@ -84,6 +90,19 @@ class MapViewModel: ObservableObject {
                 }
             }
             .assign(to: \.markerViewModel, on: self)
+            .store(in: &cancellables)
+    }
+    
+    private func setUpSelectedListViewModel() {
+        $listViewModel
+            .combineLatest($selectedInfoWindow)
+            .sink { (listViewModel, selectedInfoWindow) in
+                guard let id = selectedInfoWindow?.userInfo["id"] as? String,
+                      let index = listViewModel.firstIndex(where: { $0.id == id }) else {
+                    return
+                }
+                self.selectedListViewModel = listViewModel[index]
+            }
             .store(in: &cancellables)
     }
 }

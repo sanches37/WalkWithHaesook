@@ -34,7 +34,7 @@ struct MapView: UIViewRepresentable {
             .sink { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     setUpMarker()
-                    UpdateInfoWindow(context: context)
+                    updateInfoWindow(context: context)
                     mapViewModel.focusLocation()
                 }
             }
@@ -51,11 +51,10 @@ struct MapView: UIViewRepresentable {
             $0.infoWindow.touchHandler = markerHandler()
             $0.infoWindow.userInfo = ["title": $0.title,
                                       "id": $0.id ]
-            $0.infoWindow.open(with: $0.marker)
         }
     }
     
-    private func UpdateInfoWindow(context: Context) {
+    private func updateInfoWindow(context: Context) {
         mapViewModel.$markerViewModel
             .combineLatest(mapViewModel.$selectedInfoWindow)
             .sink { (markerViewModel, selectedInfoWindow) in
@@ -103,6 +102,7 @@ struct MapView: UIViewRepresentable {
 extension MapView.Coordinator: NMFMapViewCameraDelegate {
     func mapViewCameraIdle(_ mapView: NMFMapView) {
         updateMarkers(mapView: mapView)
+        mapViewModel.updateNMFMapView = mapView
     }
     
     private func updateMarkers(mapView: NMFMapView) {
@@ -121,6 +121,6 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
 extension MapView.Coordinator: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         mapViewModel.selectedInfoWindow = nil
-        mapViewModel.listViewModel = nil
+        mapViewModel.selectedListViewModel = nil
     }
 }

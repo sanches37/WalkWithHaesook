@@ -22,7 +22,7 @@ class DetailViewModel: ObservableObject {
     
     private func setUp() {
         mapViewModel.walkRepository.$walk
-            .combineLatest( mapViewModel.$listViewModel)
+            .combineLatest( mapViewModel.$selectedListViewModel)
             .sink { walkList, listViewModel in
                 guard let index = walkList.firstIndex(where: { $0.id == listViewModel?.id }),
                       let url = URL(string: walkList[index].video) else {

@@ -26,12 +26,12 @@ struct ContentView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
-                    if let listViewModel = mapViewModel.listViewModel {
+                    if let listViewModel = mapViewModel.selectedListViewModel {
                         NavigationLink(
                             destination: DetailView()
                                 .onDisappear {
                                     mapViewModel.selectedInfoWindow = nil
-                                    mapViewModel.listViewModel = nil
+                                    mapViewModel.selectedListViewModel = nil
                                 }) {
                                     ListView(listViewModel: listViewModel)
                                 }
