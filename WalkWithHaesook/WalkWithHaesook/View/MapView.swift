@@ -30,8 +30,8 @@ struct MapView: UIViewRepresentable {
     
     private func setUp(context: Context) {
         setUpMarker(context: context)
+        updateFocusLocation(context: context)
         updateInfoWindow(context: context)
-        mapViewModel.focusLocation()
     }
     
     private func setUpMarker(context: Context) {
@@ -47,6 +47,15 @@ struct MapView: UIViewRepresentable {
                     $0.infoWindow.touchHandler = markerHandler()
                     $0.infoWindow.userInfo = ["id": $0.id ]
                 }
+            }
+            .store(in: &context.coordinator.cancellable)
+    }
+    
+    private func updateFocusLocation(context: Context) {
+        mapViewModel.$userLocation
+            .first { $0 != nil }
+            .sink {
+                mapViewModel.focusLocation = $0
             }
             .store(in: &context.coordinator.cancellable)
     }

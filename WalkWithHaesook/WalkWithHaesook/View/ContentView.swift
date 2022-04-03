@@ -17,7 +17,9 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.vertical)
                 VStack(spacing: .zero) {
                     Spacer()
-                    Button(action: mapViewModel.focusLocation) {
+                    Button {
+                        mapViewModel.focusLocation = mapViewModel.userLocation
+                    } label: {
                         Image(systemName: "scope")
                             .font(.body)
                             .padding(13)

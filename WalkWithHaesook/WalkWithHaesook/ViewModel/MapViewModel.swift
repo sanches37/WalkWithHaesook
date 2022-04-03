@@ -15,6 +15,7 @@ class MapViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     @Published var userLocation: NMGLatLng?
     @Published var permissionDenied = false
+    @Published var focusLocation: NMGLatLng?
     @Published var listViewModel: [ListViewModel] = []
     @Published var markerViewModel: [MarkerViewModel] = []
     @Published var updateNMFMapView: NMFMapView?
@@ -23,6 +24,7 @@ class MapViewModel: ObservableObject {
     
     init() {
         getUserLocation()
+        setUpFocusLocation()
         setUpListViewModel()
         setUpMarkerViewModel()
         setUpSelectedListViewModel()
@@ -40,13 +42,17 @@ class MapViewModel: ObservableObject {
         .store(in: &cancellables)
     }
     
-    func focusLocation() {
-        guard let userLocation = userLocation else { return }
-        mapView.positionMode = .direction
-        let cameraUpdate = NMFCameraUpdate(scrollTo: userLocation)
-        cameraUpdate.animation = .easeIn
-        cameraUpdate.animationDuration = 1
-        mapView.moveCamera(cameraUpdate)
+    private func setUpFocusLocation() {
+        $focusLocation
+            .sink {
+                guard let focusLocation = $0 else { return }
+                self.mapView.positionMode = .direction
+                let cameraUpdate = NMFCameraUpdate(scrollTo: focusLocation)
+                cameraUpdate.animation = .easeIn
+                cameraUpdate.animationDuration = 1
+                self.mapView.moveCamera(cameraUpdate)
+            }
+            .store(in: &cancellables)
     }
     
     private func setUpListViewModel() {
