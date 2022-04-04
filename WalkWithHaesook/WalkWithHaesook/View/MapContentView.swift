@@ -16,7 +16,7 @@ struct MapContentView: View {
                 MapView(mapViewModel: mapViewModel)
                     .edgesIgnoringSafeArea(.vertical)
                 VStack(spacing: .zero) {
-                    Spacer(minLength: 500)
+                    Spacer()
                     
                     Button {
                         mapViewModel.focusLocation = mapViewModel.userLocation
@@ -30,38 +30,29 @@ struct MapContentView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                     
-                    if mapViewModel.selectedListViewModel != nil {
-                        GeometryReader { proxy in
-                            CustomScrollView(mapViewModel: mapViewModel,
-                                             rect: proxy.frame(in: .global)) {
-                                HStack(spacing: .zero) {
-                                    ForEach(mapViewModel.listViewModel) { listViewModel in
-                                        NavigationLink(
-                                            destination: DetailView()
-                                                .onDisappear {
-                                                    mapViewModel.selectedInfoWindow = nil
-                                                    mapViewModel.selectedListViewModel = nil
-                                                    mapViewModel.selectedListViewModelIndex = nil
-                                                }) {
-                                                    ListView(listViewModel: listViewModel)
-                                                }
-                                    }
+                    if let listViewModel = mapViewModel.selectedListViewModel {
+                        NavigationLink(
+                            destination: DetailView()
+                                .onDisappear {
+                                    mapViewModel.selectedInfoWindow = nil
+                                    mapViewModel.selectedListViewModel = nil
+                                    mapViewModel.selectedListViewModelIndex = nil
+                                }) {
+                                    ListView(listViewModel: listViewModel)
                                 }
-                            }
-                        }
                     }
                 }
-            }
-            .applyContentViewTitle()
-            .alert(isPresented: $mapViewModel.permissionDenied) {
-                let firstButton = Alert.Button.cancel((Text("취소")))
-                let secondButton = Alert.Button.default(Text("설정")) {
-                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                .applyContentViewTitle()
+                .alert(isPresented: $mapViewModel.permissionDenied) {
+                    let firstButton = Alert.Button.cancel((Text("취소")))
+                    let secondButton = Alert.Button.default(Text("설정")) {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+                    return Alert(title: Text("위치 허용이 되지 않았습니다."),
+                                 message: Text("설정에서 위치 허용을 해주세요"),
+                                 primaryButton: firstButton,
+                                 secondaryButton: secondButton)
                 }
-                return Alert(title: Text("위치 허용이 되지 않았습니다."),
-                             message: Text("설정에서 위치 허용을 해주세요"),
-                             primaryButton: firstButton,
-                             secondaryButton: secondButton)
             }
         }
     }
