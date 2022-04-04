@@ -42,6 +42,7 @@ struct CustomScrollView<Content: View>: UIViewRepresentable {
         CGRect(x: 0, y: 0,
                width: rect.width * CGFloat(mapViewModel.listViewModel.count),
                height: rect.height)
+        contentView.view.sizeToFit()
         contentView.view.backgroundColor = .clear
         return contentView.view
     }

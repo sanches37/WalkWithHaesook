@@ -34,7 +34,7 @@ struct MapContentView: View {
                         GeometryReader { proxy in
                             CustomScrollView(mapViewModel: mapViewModel,
                                              rect: proxy.frame(in: .global)) {
-                                HStack {
+                                HStack(spacing: .zero) {
                                     ForEach(mapViewModel.listViewModel) { listViewModel in
                                         NavigationLink(
                                             destination: DetailView()
