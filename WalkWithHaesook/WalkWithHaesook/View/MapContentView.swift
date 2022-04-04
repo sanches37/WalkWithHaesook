@@ -16,7 +16,8 @@ struct MapContentView: View {
                 MapView(mapViewModel: mapViewModel)
                     .edgesIgnoringSafeArea(.vertical)
                 VStack(spacing: .zero) {
-                    Spacer()
+                    Spacer(minLength: 500)
+                    
                     Button {
                         mapViewModel.focusLocation = mapViewModel.userLocation
                     } label: {
@@ -28,16 +29,26 @@ struct MapContentView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
-                    if let listViewModel = mapViewModel.selectedListViewModel {
-                        NavigationLink(
-                            destination: DetailView()
-                                .onDisappear {
-                                    mapViewModel.selectedInfoWindow = nil
-                                    mapViewModel.selectedListViewModel = nil
-                                    mapViewModel.selectedListViewModelIndex = nil
-                                }) {
-                                    ListView(listViewModel: listViewModel)
+                    
+                    if mapViewModel.selectedListViewModel != nil {
+                        GeometryReader { proxy in
+                            CustomScrollView(mapViewModel: mapViewModel,
+                                             rect: proxy.frame(in: .global)) {
+                                HStack {
+                                    ForEach(mapViewModel.listViewModel) { listViewModel in
+                                        NavigationLink(
+                                            destination: DetailView()
+                                                .onDisappear {
+                                                    mapViewModel.selectedInfoWindow = nil
+                                                    mapViewModel.selectedListViewModel = nil
+                                                    mapViewModel.selectedListViewModelIndex = nil
+                                                }) {
+                                                    ListView(listViewModel: listViewModel)
+                                                }
+                                    }
                                 }
+                            }
+                        }
                     }
                 }
             }
