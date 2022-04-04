@@ -34,6 +34,7 @@ struct MapContentView: View {
                                 .onDisappear {
                                     mapViewModel.selectedInfoWindow = nil
                                     mapViewModel.selectedListViewModel = nil
+                                    mapViewModel.selectedListViewModelIndex = nil
                                 }) {
                                     ListView(listViewModel: listViewModel)
                                 }

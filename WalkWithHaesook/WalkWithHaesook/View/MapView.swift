@@ -85,7 +85,6 @@ struct MapView: UIViewRepresentable {
                                                                         status: .selected)
                         $0.infoWindow.zIndex = 1
                         $0.infoWindow.invalidate()
-                        
                     } else {
                         $0.infoWindow.dataSource = CustomInfoWindowView(title: $0.title)
                         $0.infoWindow.zIndex = .zero
@@ -143,5 +142,6 @@ extension MapView.Coordinator: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         mapViewModel.selectedInfoWindow = nil
         mapViewModel.selectedListViewModel = nil
+        mapViewModel.selectedListViewModelIndex = nil
     }
 }

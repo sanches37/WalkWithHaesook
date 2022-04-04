@@ -21,6 +21,7 @@ class MapViewModel: ObservableObject {
     @Published var updateMapView: NMFMapView?
     @Published var selectedInfoWindow: NMFInfoWindow?
     @Published var selectedListViewModel: ListViewModel?
+    @Published var selectedListViewModelIndex: Int?
     
     init() {
         getUserLocation()
@@ -93,6 +94,7 @@ class MapViewModel: ObservableObject {
                       let index = listViewModel.firstIndex(where: { $0.id == id }) else {
                     return
                 }
+                self.selectedListViewModelIndex = index
                 self.selectedListViewModel = listViewModel[index]
             }
             .store(in: &cancellables)
