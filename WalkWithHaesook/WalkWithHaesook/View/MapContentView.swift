@@ -17,28 +17,47 @@ struct MapContentView: View {
                     .edgesIgnoringSafeArea(.vertical)
                 VStack(spacing: .zero) {
                     Spacer()
-                    
                     Button {
                         mapViewModel.focusLocation = mapViewModel.userLocation
                     } label: {
                         Image(systemName: "scope")
                             .font(.body)
-                            .padding(13)
+                            .padding(10)
                             .background(Color.white)
                             .clipShape(Circle())
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                     
-                        NavigationLink(
-                            destination: DetailView()
-                                .onDisappear {
-                                    mapViewModel.selectedInfoWindow = nil
-                                    mapViewModel.selectedListViewModel = nil
-                                    mapViewModel.selectedListViewModelIndex = nil
-                                }) {
-                                    ListView(listViewModel: mapViewModel.selectedListViewModel)
+                    if mapViewModel.selectedListViewModelID != nil {
+                        ScrollViewReader { proxy in
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                LazyHStack(spacing: .zero) {
+                                    ForEach(mapViewModel.listViewModel) { listViewModel in
+                                        NavigationLink(
+                                            destination: DetailView()
+                                                .onDisappear {
+                                                    mapViewModel.selectedInfoWindow = nil
+                                                    mapViewModel.selectedListViewModelID = nil
+                                                }) {
+                                                    ListView(listViewModel: listViewModel)
+                                                }
+                                                .id(listViewModel.id)
+                                    }
                                 }
+                            }
+                            .frame(height: UIScreen.main.bounds.width / 3.5)
+                            .onAppear {
+                                UIScrollView.appearance().isPagingEnabled = true
+                            }
+                            .onReceive(mapViewModel.$selectedListViewModelID, perform: { id in
+                                withAnimation {
+                                    proxy.scrollTo(id)
+                                }
+                            })
+                            .padding(.bottom)
+                        }
+                    }
                 }
                 .applyContentViewTitle()
                 .alert(isPresented: $mapViewModel.permissionDenied) {

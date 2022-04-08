@@ -141,7 +141,6 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
 extension MapView.Coordinator: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         mapViewModel.selectedInfoWindow = nil
-        mapViewModel.selectedListViewModel = nil
-        mapViewModel.selectedListViewModelIndex = nil
+        mapViewModel.selectedListViewModelID = nil
     }
 }

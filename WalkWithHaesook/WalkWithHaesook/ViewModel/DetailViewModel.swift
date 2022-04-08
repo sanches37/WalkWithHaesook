@@ -22,13 +22,13 @@ class DetailViewModel: ObservableObject {
     
     private func setUp() {
         mapViewModel.walkRepository.$walk
-            .combineLatest( mapViewModel.$selectedListViewModel)
-            .sink { walkList, listViewModel in
-                guard let index = walkList.firstIndex(where: { $0.id == listViewModel?.id }),
+            .combineLatest( mapViewModel.$selectedListViewModelID)
+            .sink { walkList, id in
+                guard let index = walkList.firstIndex(where: { $0.id == id }),
                       let url = URL(string: walkList[index].video) else {
                     return
                 }
-                self.title = listViewModel?.title
+                self.title = walkList[index].title
                 self.video = AVPlayer(url: url)
                 self.description = walkList[index].description
             }

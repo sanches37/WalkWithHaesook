@@ -35,7 +35,8 @@ struct ListView: View {
             }
             .background(Color.white)
             .cornerRadius(10)
-            .padding([.bottom, .horizontal])
+            .frame(width: UIScreen.main.bounds.width - 40)
+            .padding([.horizontal], 20)
         }
     }
 }
