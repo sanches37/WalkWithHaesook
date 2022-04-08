@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ListView: View {
     var listViewModel: ListViewModel?
     var body: some View {
         if let listViewModel = listViewModel {
             HStack() {
-                KFImageView(url: URL(string: listViewModel.thumnail))
+                KFImage(URL(string: listViewModel.thumnail))
+                    .resizable()
+                    .placeholder {
+                        Image(systemName: "hourglass.bottomhalf.filled")
+                            .font(.largeTitle)
+                            .foregroundColor(.black)
+                    }
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width / 3.5,
                            height: UIScreen.main.bounds.width / 3.5)
-                    .clipped()
                 VStack(alignment: .leading, spacing: 15) {
                     Text(listViewModel.title)
                         .font(.body.bold())

@@ -30,7 +30,6 @@ struct MapContentView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                     
-                    if let listViewModel = mapViewModel.selectedListViewModel {
                         NavigationLink(
                             destination: DetailView()
                                 .onDisappear {
@@ -38,9 +37,8 @@ struct MapContentView: View {
                                     mapViewModel.selectedListViewModel = nil
                                     mapViewModel.selectedListViewModelIndex = nil
                                 }) {
-                                    ListView(listViewModel: listViewModel)
+                                    ListView(listViewModel: mapViewModel.selectedListViewModel)
                                 }
-                    }
                 }
                 .applyContentViewTitle()
                 .alert(isPresented: $mapViewModel.permissionDenied) {
