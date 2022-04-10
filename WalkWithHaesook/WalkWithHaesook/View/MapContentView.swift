@@ -31,7 +31,9 @@ struct MapContentView: View {
                     
                     if mapViewModel.selectedListViewModelID != nil {
                         ScrollViewReader { proxy in
-                            ScrollView(.horizontal, showsIndicators: false) {
+                            OffsetScrollView { point in
+                                print(Int(point))
+                            } content: {
                                 LazyHStack(spacing: .zero) {
                                     ForEach(mapViewModel.listViewModel) { listViewModel in
                                         NavigationLink(
@@ -46,35 +48,34 @@ struct MapContentView: View {
                                     }
                                 }
                             }
-                            .frame(height: UIScreen.main.bounds.width / 3.5)
-                            .onAppear {
-                                UIScrollView.appearance().isPagingEnabled = true
-                            }
+                            .frame(height: UIScreen.main.bounds.width / 3.2)
                             .onReceive(mapViewModel.$selectedListViewModelID, perform: { id in
                                 withAnimation {
                                     proxy.scrollTo(id)
                                 }
                             })
-                            .padding(.bottom)
+                            .onAppear {
+                                UIScrollView.appearance().isPagingEnabled = true
+                            }
+                            .padding(.bottom, 20)
                         }
                     }
                 }
-                .applyContentViewTitle()
-                .alert(isPresented: $mapViewModel.permissionDenied) {
-                    let firstButton = Alert.Button.cancel((Text("취소")))
-                    let secondButton = Alert.Button.default(Text("설정")) {
-                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                    }
-                    return Alert(title: Text("위치 허용이 되지 않았습니다."),
-                                 message: Text("설정에서 위치 허용을 해주세요"),
-                                 primaryButton: firstButton,
-                                 secondaryButton: secondButton)
+            }
+            .applyContentViewTitle()
+            .alert(isPresented: $mapViewModel.permissionDenied) {
+                let firstButton = Alert.Button.cancel((Text("취소")))
+                let secondButton = Alert.Button.default(Text("설정")) {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                 }
+                return Alert(title: Text("위치 허용이 되지 않았습니다."),
+                             message: Text("설정에서 위치 허용을 해주세요"),
+                             primaryButton: firstButton,
+                             secondaryButton: secondButton)
             }
         }
     }
 }
-
 extension View {
     @ViewBuilder
     func applyContentViewTitle() -> some View {

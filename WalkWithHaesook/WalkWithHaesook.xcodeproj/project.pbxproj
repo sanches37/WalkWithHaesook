@@ -26,6 +26,7 @@
 		4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134127CC26FD00D9442E /* FireStoreManager.swift */; };
 		4DD1134527CC272200D9442E /* FireStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134427CC272200D9442E /* FireStoreError.swift */; };
 		4DD1134827CC38EF00D9442E /* WalkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1134727CC38EF00D9442E /* WalkRepository.swift */; };
+		4DD125482802A51B00119B4E /* OffsetScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD125472802A51B00119B4E /* OffsetScrollView.swift */; };
 		4DE8021927CF072F00AD1E3C /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8021827CF072F00AD1E3C /* ListViewModel.swift */; };
 		4DE8021B27CF12AD00AD1E3C /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8021A27CF12AD00AD1E3C /* ListView.swift */; };
 		4DE8021D27D0B6B100AD1E3C /* MarkerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE8021C27D0B6B100AD1E3C /* MarkerViewModel.swift */; };
@@ -56,6 +57,7 @@
 		4DD1134127CC26FD00D9442E /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		4DD1134427CC272200D9442E /* FireStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreError.swift; sourceTree = "<group>"; };
 		4DD1134727CC38EF00D9442E /* WalkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkRepository.swift; sourceTree = "<group>"; };
+		4DD125472802A51B00119B4E /* OffsetScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetScrollView.swift; sourceTree = "<group>"; };
 		4DE8021827CF072F00AD1E3C /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		4DE8021A27CF12AD00AD1E3C /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		4DE8021C27D0B6B100AD1E3C /* MarkerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerViewModel.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				4D48E1BB27C1868400F15D7E /* MapContentView.swift */,
 				4D244AA427CA1A5E00B436FD /* MapView.swift */,
 				4DCBB89027EDA2FB0010364D /* CustomInfoWindowView.swift */,
+				4DD125472802A51B00119B4E /* OffsetScrollView.swift */,
 				4DE8021A27CF12AD00AD1E3C /* ListView.swift */,
 				4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */,
 				4D537A6527F0E24D00BBF7A5 /* DetailView.swift */,
@@ -342,6 +345,7 @@
 				4DE8021D27D0B6B100AD1E3C /* MarkerViewModel.swift in Sources */,
 				4D9C373327F5864E00A50E5D /* PlayButtonView.swift in Sources */,
 				4D48E1BC27C1868400F15D7E /* MapContentView.swift in Sources */,
+				4DD125482802A51B00119B4E /* OffsetScrollView.swift in Sources */,
 				4D244AAB27CA1B5500B436FD /* MapViewModel.swift in Sources */,
 				4DE8021927CF072F00AD1E3C /* ListViewModel.swift in Sources */,
 				4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */,
