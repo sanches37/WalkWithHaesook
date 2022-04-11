@@ -23,13 +23,7 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         locationSubject.send(location)
     }
-    
-    @available(iOS, deprecated: 14.0)
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        decidedAuthorization(status: status)
-    }
-    
-    @available(iOS 14.0, *)
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         decidedAuthorization(status: manager.authorizationStatus)
     }
