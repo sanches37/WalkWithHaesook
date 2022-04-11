@@ -93,6 +93,17 @@ struct MapView: UIViewRepresentable {
                 }
             }
             .store(in: &context.coordinator.cancellable)
+        
+        mapViewModel.$listViewModel
+            .debounce(for: 0.01, scheduler: RunLoop.main)
+            .sink { _ in
+                guard let id = mapViewModel.selectedListViewModelID,
+                let markerIndex = mapViewModel.markerViewModel.firstIndex(where: {
+                    $0.id == id
+                }) else { return }
+                self.mapViewModel.selectedInfoWindow = mapViewModel.markerViewModel[markerIndex].infoWindow
+            }
+            .store(in: &context.coordinator.cancellable)
     }
     
     private func markerHandler() -> (NMFOverlay) -> Bool {

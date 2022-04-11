@@ -50,9 +50,9 @@ struct MapContentView: View {
                             }
                             .frame(height: UIScreen.main.bounds.width / 3.2)
                             .onReceive(mapViewModel.$selectedListViewModelID, perform: { id in
-                                withAnimation {
+//                                withAnimation {
                                     proxy.scrollTo(id)
-                                }
+//                                }
                             })
                             .onAppear {
                                 UIScrollView.appearance().isPagingEnabled = true
