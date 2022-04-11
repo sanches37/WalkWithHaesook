@@ -21,12 +21,14 @@ class MapViewModel: ObservableObject {
     @Published var updateMapView: NMFMapView?
     @Published var selectedInfoWindow: NMFInfoWindow?
     @Published var selectedListViewModelID: String?
+    @Published var selectedListViewModelIndex: Int?
     
     init() {
         getUserLocation()
         setUpListViewModel()
         setUpMarkerViewModel()
         setUpSelectedListViewModelID()
+        //        setUpSelectedInfoWindow()
     }
     
     private func getUserLocation() {
@@ -89,10 +91,26 @@ class MapViewModel: ObservableObject {
         $selectedInfoWindow
             .sink { selectedInfoWindow in
                 guard let id = selectedInfoWindow?.userInfo["id"] as? String else {
+                    self.selectedListViewModelID = nil
                     return
                 }
                 self.selectedListViewModelID = id
             }
             .store(in: &cancellables)
     }
+    
+    //    private func setUpSelectedInfoWindow() {
+    //        $selectedListViewModelIndex
+    //            .removeDuplicates()
+    //            .combineLatest($listViewModel, $markerViewModel)
+    //            .sink { (index, listViewModel, markerViewModel) in
+    //                guard let index = index else {
+    //                    self.selectedListViewModelID = nil
+    //                    return }
+    //                self.selectedListViewModelID = listViewModel[index].id
+    //                guard let markerIndex = markerViewModel.firstIndex(where: { $0.id == listViewModel[index].id }) else { return }
+    //                self.selectedInfoWindow = markerViewModel[markerIndex].infoWindow
+    //            }
+    //            .store(in: &cancellables)
+    //    }
 }

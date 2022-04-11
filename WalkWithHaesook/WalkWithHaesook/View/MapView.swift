@@ -123,6 +123,7 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
     func mapViewCameraIdle(_ mapView: NMFMapView) {
         updateMarkers(mapView: mapView)
         mapViewModel.updateMapView = mapView
+        deleteSelectedMarker(mapView: mapView)
     }
     
     private func updateMarkers(mapView: NMFMapView) {
@@ -136,11 +137,20 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
             }
         }
     }
+    
+    private func deleteSelectedMarker(mapView: NMFMapView) {
+        guard let selectedId = mapViewModel.selectedListViewModelID,
+              let index = mapViewModel.markerViewModel.firstIndex(where: {
+                  $0.id == selectedId }) else { return }
+        if mapView.contentBounds.hasPoint(
+            mapViewModel.markerViewModel[index].marker.position) == false {
+            mapViewModel.selectedInfoWindow = nil
+        }
+    }
 }
 
 extension MapView.Coordinator: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         mapViewModel.selectedInfoWindow = nil
-        mapViewModel.selectedListViewModelID = nil
     }
 }

@@ -31,8 +31,8 @@ struct MapContentView: View {
                     
                     if mapViewModel.selectedListViewModelID != nil {
                         ScrollViewReader { proxy in
-                            OffsetScrollView { point in
-                                print(Int(point))
+                            OffsetScrollView { float in
+                                mapViewModel.selectedListViewModelIndex = Int(float)
                             } content: {
                                 LazyHStack(spacing: .zero) {
                                     ForEach(mapViewModel.listViewModel) { listViewModel in
@@ -40,7 +40,6 @@ struct MapContentView: View {
                                             destination: DetailView()
                                                 .onDisappear {
                                                     mapViewModel.selectedInfoWindow = nil
-                                                    mapViewModel.selectedListViewModelID = nil
                                                 }) {
                                                     ListView(listViewModel: listViewModel)
                                                 }
