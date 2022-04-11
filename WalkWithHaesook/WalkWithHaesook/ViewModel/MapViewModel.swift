@@ -45,8 +45,8 @@ class MapViewModel: ObservableObject {
     
     private func setUpListViewModel() {
         walkRepository.$walk
-            .combineLatest($userLocation, $updateMapView)
-            .map { (walkList, userLocation, mapView) -> [ListViewModel] in
+            .combineLatest($updateMapView)
+            .map { (walkList, mapView) -> [ListViewModel] in
                 walkList.filter {
                     let latLng = NMGLatLng(
                         lat: $0.latLng.latitude,
@@ -58,7 +58,7 @@ class MapViewModel: ObservableObject {
                     let latLng = NMGLatLng(
                         lat: walk.latLng.latitude,
                         lng: walk.latLng.longitude)
-                    guard let distance = userLocation?.distance(to: latLng) else {
+                    guard let distance = self.userLocation?.distance(to: latLng) else {
                         return ListViewModel(walk: walk, distance: nil)
                     }
                     return ListViewModel(walk: walk, distance: distance.withMeter)
