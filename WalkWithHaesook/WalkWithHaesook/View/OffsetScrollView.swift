@@ -10,12 +10,12 @@ import SwiftUI
 struct OffsetScrollView<Content: View>: View {
     let axis: Axis.Set
     let showIndicator: Bool
-    let offsetChanged: (CGFloat) -> Void
+    let offsetChanged: (Int) -> Void
     let content: Content
     
     init(axis: Axis.Set = .horizontal,
          showIndicator: Bool = false,
-         offsetChanged: @escaping (CGFloat) -> Void,
+         offsetChanged: @escaping (Int) -> Void,
          @ViewBuilder content: () -> Content
     ) {
         self.axis = axis
@@ -30,8 +30,8 @@ struct OffsetScrollView<Content: View>: View {
                 Color.clear.preference(
                     key: OffsetScrollViewPreferenceKey.self,
                     value: axis == .horizontal ?
-                    -(proxy.frame(in: .global).minX) / UIScreen.main.bounds.width :
-                    -(proxy.frame(in: .global).minY) / UIScreen.main.bounds.height )
+                    -Int(proxy.frame(in: .global).minX / UIScreen.main.bounds.width) :
+                    -Int(proxy.frame(in: .global).minY / UIScreen.main.bounds.height))
             }
             .frame(height: .zero)
             content
@@ -41,6 +41,6 @@ struct OffsetScrollView<Content: View>: View {
 }
 
 struct OffsetScrollViewPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat = .zero
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {}
+    static var defaultValue: Int = .zero
+    static func reduce(value: inout Int, nextValue: () -> Int) {}
 }
