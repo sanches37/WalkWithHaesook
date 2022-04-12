@@ -122,7 +122,7 @@ class MapViewModel: ObservableObject {
     private func updateSelectedInfoWindowDueToListScroll() {
         $selectedListViewModelIndex
             .removeDuplicates()
-            .debounce(for: 0.01, scheduler: RunLoop.main)
+            .debounce(for: 0.02, scheduler: RunLoop.main)
             .sink { index in
                 guard let index = index,
                       self.listViewModel.indices.contains(index),

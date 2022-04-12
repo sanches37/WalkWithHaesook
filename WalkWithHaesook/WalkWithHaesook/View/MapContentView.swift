@@ -32,7 +32,6 @@ struct MapContentView: View {
                     if mapViewModel.selectedListViewModelID != nil {
                         ScrollViewReader { proxy in
                             OffsetScrollView { index in
-                                print(index)
                                 mapViewModel.selectedListViewModelIndex = index
                             } content: {
                                 LazyHStack(spacing: .zero) {
