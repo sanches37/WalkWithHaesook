@@ -108,7 +108,7 @@ class MapViewModel: ObservableObject {
     private func updateSelectedInfoWindowDueToUpdatedList() {
         $listViewModel
             .combineLatest($selectedInfoWindow.first())
-            .debounce(for: 0.02, scheduler: RunLoop.main)
+            .debounce(for: 0.01, scheduler: RunLoop.main)
             .sink { _ in
                 guard let id = self.selectedListViewModelID,
                       let markerIndex = self.markerViewModel.firstIndex(where: {
@@ -125,6 +125,7 @@ class MapViewModel: ObservableObject {
             .debounce(for: 0.01, scheduler: RunLoop.main)
             .sink { index in
                 guard let index = index,
+                      self.listViewModel.indices.contains(index),
                     let markerIndex = self.markerViewModel.firstIndex(where: {
                         $0.id == self.listViewModel[index].id
                 }) else { return }
