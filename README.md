@@ -4,11 +4,11 @@
 <br/>
 
 ## 프로젝트 진행시 지키려고 한 사항
-* IOS 13.0 이상 동작하도록 구현
+* ~~IOS 13.0 이상 동작하도록 구현~~ -> IOS 14.0이상 동작하도록 구현   
 * MVVM 패턴으로 구현
 <br/>
 
-![WalkWithHaesook mp4](https://user-images.githubusercontent.com/84059338/160789687-deae81b5-2c94-4577-9cd1-6c2a0092ac1e.gif)
+<img src = "https://user-images.githubusercontent.com/84059338/160789687-deae81b5-2c94-4577-9cd1-6c2a0092ac1e.gif" width="300"> &nbsp;&nbsp;&nbsp;&nbsp; <img src = "https://user-images.githubusercontent.com/84059338/162907197-ed33d5f7-a200-464d-9ece-ef283394efc5.gif" width="300">
 <br/>
 
 ## Step1 - Firestore 코드 구현 및 CLLocation을 이용한 사용자 위치 표시
@@ -23,6 +23,10 @@
 
 ## Setp3 - 마커 클릭시 DetailView로 이동 후 산책로 동영상 재생
 * DetailView로 이동시 영상이 자동재생되고, 다시 지도뷰로 이동시 영상이 해제되도록 구현
+<br/>
+
+## Setp4 - IOS14.0으로 최소 버전 설정 및 ListView를 배열 형태로 변경
+* ListView와 Marker가 서로 연동되게 동작하도록 구현
 <br/>
 
 ## 사용기술
