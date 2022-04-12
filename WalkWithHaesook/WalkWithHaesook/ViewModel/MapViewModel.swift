@@ -27,8 +27,9 @@ class MapViewModel: ObservableObject {
         getUserLocation()
         setUpListViewModel()
         setUpMarkerViewModel()
-        setUpSelectedListViewModelID()
-        //        setUpSelectedInfoWindow()
+        updateSelectedListViewModelInfo()
+        updateSelectedInfoWindowDueToUpdatedList()
+        updateSelectedInfoWindowDueToListScroll()
     }
     
     private func getUserLocation() {
@@ -87,30 +88,48 @@ class MapViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    private func setUpSelectedListViewModelID() {
+    private func updateSelectedListViewModelInfo() {
         $selectedInfoWindow
             .sink { selectedInfoWindow in
-                guard let id = selectedInfoWindow?.userInfo["id"] as? String else {
+                guard let id = selectedInfoWindow?.userInfo["id"] as? String,
+                let index = self.listViewModel.firstIndex(where: {
+                    $0.id == id
+                }) else {
                     self.selectedListViewModelID = nil
+                    self.selectedListViewModelIndex = nil
                     return
                 }
                 self.selectedListViewModelID = id
+                self.selectedListViewModelIndex = index
             }
             .store(in: &cancellables)
     }
     
-    //    private func setUpSelectedInfoWindow() {
-    //        $selectedListViewModelIndex
-    //            .removeDuplicates()
-    //            .combineLatest($listViewModel, $markerViewModel)
-    //            .sink { (index, listViewModel, markerViewModel) in
-    //                guard let index = index else {
-    //                    self.selectedListViewModelID = nil
-    //                    return }
-    //                self.selectedListViewModelID = listViewModel[index].id
-    //                guard let markerIndex = markerViewModel.firstIndex(where: { $0.id == listViewModel[index].id }) else { return }
-    //                self.selectedInfoWindow = markerViewModel[markerIndex].infoWindow
-    //            }
-    //            .store(in: &cancellables)
-    //    }
+    private func updateSelectedInfoWindowDueToUpdatedList() {
+        $listViewModel
+            .combineLatest($selectedInfoWindow.first())
+            .debounce(for: 0.02, scheduler: RunLoop.main)
+            .sink { _ in
+                guard let id = self.selectedListViewModelID,
+                      let markerIndex = self.markerViewModel.firstIndex(where: {
+                    $0.id == id
+                }) else { return }
+                self.selectedInfoWindow = self.markerViewModel[markerIndex].infoWindow
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func updateSelectedInfoWindowDueToListScroll() {
+        $selectedListViewModelIndex
+            .removeDuplicates()
+            .debounce(for: 0.01, scheduler: RunLoop.main)
+            .sink { index in
+                guard let index = index,
+                    let markerIndex = self.markerViewModel.firstIndex(where: {
+                        $0.id == self.listViewModel[index].id
+                }) else { return }
+                self.selectedInfoWindow = self.markerViewModel[markerIndex].infoWindow
+            }
+            .store(in: &cancellables)
+    }
 }

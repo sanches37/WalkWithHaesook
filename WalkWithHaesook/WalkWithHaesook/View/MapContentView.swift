@@ -33,7 +33,6 @@ struct MapContentView: View {
                         ScrollViewReader { proxy in
                             OffsetScrollView { index in
                                 mapViewModel.selectedListViewModelIndex = index
-                                print(index)
                             } content: {
                                 LazyHStack(spacing: .zero) {
                                     ForEach(mapViewModel.listViewModel) { listViewModel in
@@ -50,9 +49,7 @@ struct MapContentView: View {
                             }
                             .frame(height: UIScreen.main.bounds.width / 3.2)
                             .onReceive(mapViewModel.$selectedListViewModelID, perform: { id in
-//                                withAnimation {
                                     proxy.scrollTo(id)
-//                                }
                             })
                             .onAppear {
                                 UIScrollView.appearance().isPagingEnabled = true
