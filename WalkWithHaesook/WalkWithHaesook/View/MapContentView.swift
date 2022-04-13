@@ -27,7 +27,8 @@ struct MapContentView: View {
                             .clipShape(Circle())
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding()
+                    .padding(.bottom)
+                    .padding(.trailing, 20)
                     
                     if mapViewModel.selectedListViewModelID != nil {
                         ScrollViewReader { proxy in
