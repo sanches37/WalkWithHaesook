@@ -12,7 +12,7 @@ struct ListView: View {
     var listViewModel: ListViewModel?
     var body: some View {
         if let listViewModel = listViewModel {
-            HStack() {
+            HStack {
                 KFImage(URL(string: listViewModel.thumnail))
                     .resizable()
                     .placeholder {
