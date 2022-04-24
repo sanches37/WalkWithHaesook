@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>102053098256-4kscf7fs8bjd8n7fii9p9ll1kf2jlfpo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.102053098256-4kscf7fs8bjd8n7fii9p9ll1kf2jlfpo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAFprUrTYLZkCB5JBFJaUSS0SlrrlIGuGQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>102053098256</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.apple-samplecode.WalkWithHaesook</string>
+	<key>PROJECT_ID</key>
+	<string>walkwithhaesook-4ffd2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>walkwithhaesook-4ffd2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:102053098256:ios:64e2cdc41fc0676557ab95</string>
+</dict>
+</plist>
