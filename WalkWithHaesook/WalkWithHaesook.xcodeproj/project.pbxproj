@@ -18,7 +18,7 @@
 		4D48E1BC27C1868400F15D7E /* MapContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D48E1BB27C1868400F15D7E /* MapContentView.swift */; };
 		4D537A6427F0CDDB00BBF7A5 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */; };
 		4D537A6627F0E24D00BBF7A5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D537A6527F0E24D00BBF7A5 /* DetailView.swift */; };
-		4D6A8E1C28158D5C003F9D79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D6A8E1B28158D5C003F9D79 /* GoogleService-Info.plist */; };
+		4D5C86BC281849B9009AADEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D5C86BB281849B9009AADEF /* GoogleService-Info.plist */; };
 		4D738BB227F1C290003686FC /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D738BB127F1C290003686FC /* DetailViewModel.swift */; };
 		4D9C373327F5864E00A50E5D /* PlayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9C373227F5864E00A50E5D /* PlayButtonView.swift */; };
 		4DC3FECB280033E2004C50FC /* WalkWithHaesook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3FECA280033E2004C50FC /* WalkWithHaesook.swift */; };
@@ -49,7 +49,7 @@
 		4D48E1BB27C1868400F15D7E /* MapContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContentView.swift; sourceTree = "<group>"; };
 		4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		4D537A6527F0E24D00BBF7A5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		4D6A8E1B28158D5C003F9D79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4D5C86BB281849B9009AADEF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D738BB127F1C290003686FC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		4D9C373227F5864E00A50E5D /* PlayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonView.swift; sourceTree = "<group>"; };
 		4DC3FECA280033E2004C50FC /* WalkWithHaesook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkWithHaesook.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 				4D48E1B027C1860900F15D7E /* Assets.xcassets */,
 				4D48E1B227C1860900F15D7E /* LaunchScreen.storyboard */,
 				4D48E1B527C1860900F15D7E /* Info.plist */,
-				4D6A8E1B28158D5C003F9D79 /* GoogleService-Info.plist */,
+				4D5C86BB281849B9009AADEF /* GoogleService-Info.plist */,
 			);
 			path = WalkWithHaesook;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D244AA227CA17F600B436FD /* .swiftlint.yml in Resources */,
-				4D6A8E1C28158D5C003F9D79 /* GoogleService-Info.plist in Resources */,
+				4D5C86BC281849B9009AADEF /* GoogleService-Info.plist in Resources */,
 				4D48E1B427C1860900F15D7E /* LaunchScreen.storyboard in Resources */,
 				4D48E1B127C1860900F15D7E /* Assets.xcassets in Resources */,
 			);
@@ -509,7 +509,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.WalkWithHaesook";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanches37.WalkWithHaesook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -540,7 +540,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.WalkWithHaesook";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanches37.WalkWithHaesook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
