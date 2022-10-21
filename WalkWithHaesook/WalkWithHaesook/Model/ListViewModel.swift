@@ -8,15 +8,15 @@
 import Foundation
 
 struct ListViewModel: Identifiable {
-    let thumnail: String
-    let title: String
-    let distance: String
-    let id: String
-    
-    init(walk: Walk, distance: String?) {
-        self.thumnail = walk.thumnail
-        self.title = walk.title
-        self.distance = distance ?? ""
-        self.id = walk.id ?? ""
-    }
+  let thumnail: String
+  let title: String
+  let distance: String
+  let id: String
+  
+  init(walk: Walk, distance: String?) {
+    self.thumnail = walk.thumnail
+    self.title = walk.title
+    self.distance = distance ?? ""
+    self.id = walk.id ?? ""
+  }
 }

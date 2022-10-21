@@ -8,21 +8,21 @@
 import Combine
 
 class WalkRepository: ObservableObject {
-    private let fireStoreManager = FireStoreManager()
-    @Published var walk: [Walk] = []
-    
-    init() {
-        getFireStoreData()
+  private let fireStoreManager = FireStoreManager()
+  @Published var walk: [Walk] = []
+  
+  init() {
+    getFireStoreData()
+  }
+  
+  private func getFireStoreData() {
+    fireStoreManager.fetch { (result: Result<[Walk], FireStoreError>) in
+      switch result {
+      case .success(let data):
+        self.walk = data
+      case .failure(let error):
+        debugPrint(error.errorDescription)
+      }
     }
-    
-    private func getFireStoreData() {
-        fireStoreManager.fetch { (result: Result<[Walk], FireStoreError>) in
-            switch result {
-            case .success(let data):
-                self.walk = data
-            case .failure(let error):
-                debugPrint(error.errorDescription)
-            }
-        }
-    }
+  }
 }

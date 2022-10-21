@@ -9,10 +9,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Walk: Decodable {
-    @DocumentID var id: String?
-    let title: String
-    let latLng: GeoPoint
-    let thumnail: String
-    let video: String
-    let description: String
+  @DocumentID var id: String?
+  let title: String
+  let latLng: GeoPoint
+  let thumnail: String
+  let video: String
+  let description: String
 }

@@ -9,27 +9,27 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct FireStoreManager {
-    private let db = Firestore.firestore()
-    private let path = "WalkList"
-    
-    func fetch<T: Decodable>(completion: @escaping (Result<[T], FireStoreError>) -> Void) {
-        db.collection(path).addSnapshotListener { snapshot, error in
-            if let error = error {
-                completion(.failure(.unknown(description: error.localizedDescription)))
-                return
-            }
-            guard let snapshot = snapshot?.documents else {
-                completion(.failure(.dataNotfound))
-                return
-            }
-            let dataArray = snapshot.compactMap { quary -> T? in
-                guard let data = try? quary.data(as: T.self) else {
-                    completion(.failure(.decodingFailed))
-                    return nil
-                }
-                return data
-            }
-            completion(.success(dataArray))
+  private let db = Firestore.firestore()
+  private let path = "WalkList"
+  
+  func fetch<T: Decodable>(completion: @escaping (Result<[T], FireStoreError>) -> Void) {
+    db.collection(path).addSnapshotListener { snapshot, error in
+      if let error = error {
+        completion(.failure(.unknown(description: error.localizedDescription)))
+        return
+      }
+      guard let snapshot = snapshot?.documents else {
+        completion(.failure(.dataNotfound))
+        return
+      }
+      let dataArray = snapshot.compactMap { quary -> T? in
+        guard let data = try? quary.data(as: T.self) else {
+          completion(.failure(.decodingFailed))
+          return nil
         }
+        return data
+      }
+      completion(.success(dataArray))
     }
+  }
 }

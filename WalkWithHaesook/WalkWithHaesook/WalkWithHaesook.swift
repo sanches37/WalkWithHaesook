@@ -10,15 +10,15 @@ import Firebase
 
 @main
 struct WalkWithHaesookApp: App {
-    init() {
-        FirebaseApp.configure()
+  init() {
+    FirebaseApp.configure()
+  }
+  
+  var body: some Scene {
+    WindowGroup {
+      let mapViewModel = MapViewModel()
+      MapContentView(mapViewModel: mapViewModel)
+        .environmentObject(DetailViewModel(mapViewModel: mapViewModel))
     }
-    
-    var body: some Scene {
-        WindowGroup {
-            let mapViewModel = MapViewModel()
-            MapContentView(mapViewModel: mapViewModel)
-                .environmentObject(DetailViewModel(mapViewModel: mapViewModel))
-        }
-    }
+  }
 }
