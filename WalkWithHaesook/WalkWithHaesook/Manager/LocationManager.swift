@@ -34,7 +34,7 @@ extension LocationManager: CLLocationManagerDelegate {
             locationManger.requestWhenInUseAuthorization()
         case .denied:
             locationSubject.send(nil)
-        case .authorizedWhenInUse:
+        case .authorizedAlways, .authorizedWhenInUse:
             locationManger.startUpdatingLocation()
         default:
             break

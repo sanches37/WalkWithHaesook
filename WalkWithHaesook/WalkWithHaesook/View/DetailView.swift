@@ -30,6 +30,7 @@ struct DetailView: View {
             Spacer()
         }
         .navigationTitle(detailViewModel.title ?? "")
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             detailViewModel.video?.play()
             detailViewModel.video == nil ? (isPlaying = false) : (isPlaying = true)
