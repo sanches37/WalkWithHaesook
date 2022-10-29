@@ -12,6 +12,7 @@ class MapViewModel: ObservableObject {
   let walkRepository = WalkRepository()
   let mapView = NMFMapView()
   private let locationManager = LocationManager()
+  private let makerClusterManager = MakerClusterManager()
   private var cancellables = Set<AnyCancellable>()
   @Published var userLocation: NMGLatLng?
   @Published var permissionDenied = false
@@ -23,7 +24,11 @@ class MapViewModel: ObservableObject {
   @Published var selectedListViewModelID: String?
   @Published var selectedListViewModelIndex: Int?
   @Published var zoomLevel: Double?
+  @Published var allowableDistance: Double?
   @Published var markersOnTheScreen: [NMFMarker] = []
+  @Published var northWestPositionOfBounds: NMGLatLng?
+  @Published var markerClusterCenters: [MakerClusterModel] = []
+  @Published var makerClusters: [[NMFMarker]] = []
   
   init() {
     getUserLocation()
@@ -32,6 +37,34 @@ class MapViewModel: ObservableObject {
     updateSelectedListViewModelInfo()
     updateSelectedInfoWindowDueToUpdatedList()
     updateSelectedInfoWindowDueToListScroll()
+    getMakerClusterViewModel()
+    getAllowableDistanceByZoomLevel()
+  }
+  
+  private func getAllowableDistanceByZoomLevel() {
+    $zoomLevel
+      .sink {
+        guard let result = $0 else { return }
+        switch result {
+        case 6..<7:
+          self.allowableDistance = 50000
+        case 7..<8:
+          self.allowableDistance = 30000
+        case 8..<9:
+          self.allowableDistance = 20000
+        case 9..<9.5:
+          self.allowableDistance = 12000
+        case 9.5..<10:
+          self.allowableDistance = 8000
+        case 10..<10.5:
+          self.allowableDistance = 5000
+        case 10.5..<11:
+          self.allowableDistance = 3000
+        default:
+          self.allowableDistance = nil
+        }
+      }
+      .store(in: &cancellables)
   }
   
   private func getUserLocation() {
@@ -134,5 +167,30 @@ class MapViewModel: ObservableObject {
         self.selectedInfoWindow = self.markerViewModel[markerIndex].infoWindow
       }
       .store(in: &cancellables)
+  }
+  
+  private func getMakerClusterViewModel() {
+    $markersOnTheScreen
+      .zip($northWestPositionOfBounds)
+      .sink { makers, northWest in
+        guard let northWest = northWest,
+              let allowableDistance = self.allowableDistance else {
+          return
+        }
+        self.makerClusterManager.getCluster(
+          makers: makers,
+          basePosition: northWest,
+          allowableDistance: allowableDistance) { centers, clusters in
+            self.markerClusterCenters = centers
+            self.makerClusters = clusters
+          }
+      }
+      .store(in: &cancellables)
+  }
+}
+
+extension CurrentValueSubject where Output == Void {
+  func sink(receiveCompletion: @escaping ((Subscribers.Completion<Failure>) -> Void)) -> AnyCancellable {
+    sink(receiveCompletion: receiveCompletion, receiveValue: {})
   }
 }

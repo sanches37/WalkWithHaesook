@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BFE863229023F0F0053CCF7 /* KMeans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863129023F0F0053CCF7 /* KMeans.swift */; };
+		4BFE863C290633480053CCF7 /* ClusterInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */; };
+		4BFE863E2908D21E0053CCF7 /* MakerClusterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */; };
+		4BFE8640290A3AF70053CCF7 /* MakerClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */; };
 		4D244AA227CA17F600B436FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4D244AA127CA17F600B436FD /* .swiftlint.yml */; };
 		4D244AA527CA1A5E00B436FD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D244AA427CA1A5E00B436FD /* MapView.swift */; };
 		4D244AA827CA1B0200B436FD /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D244AA727CA1B0200B436FD /* LocationManager.swift */; };
@@ -36,6 +40,10 @@
 /* Begin PBXFileReference section */
 		0D8D3EBB204C16E686BEBA5A /* Pods-WalkWithHaesook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkWithHaesook.debug.xcconfig"; path = "Target Support Files/Pods-WalkWithHaesook/Pods-WalkWithHaesook.debug.xcconfig"; sourceTree = "<group>"; };
 		198B199383E3B66BC0E29B90 /* Pods-WalkWithHaesook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkWithHaesook.release.xcconfig"; path = "Target Support Files/Pods-WalkWithHaesook/Pods-WalkWithHaesook.release.xcconfig"; sourceTree = "<group>"; };
+		4BFE863129023F0F0053CCF7 /* KMeans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMeans.swift; sourceTree = "<group>"; };
+		4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterInfoWindowView.swift; sourceTree = "<group>"; };
+		4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerClusterModel.swift; sourceTree = "<group>"; };
+		4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerClusterManager.swift; sourceTree = "<group>"; };
 		4D244AA127CA17F600B436FD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		4D244AA427CA1A5E00B436FD /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4D244AA727CA1B0200B436FD /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -84,6 +92,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4BFE863029023EF60053CCF7 /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				4BFE863129023F0F0053CCF7 /* KMeans.swift */,
+			);
+			path = Clustering;
+			sourceTree = "<group>";
+		};
 		4D244AA327CA1A4E00B436FD /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +111,7 @@
 				4D537A6327F0CDDB00BBF7A5 /* PlayerView.swift */,
 				4D537A6527F0E24D00BBF7A5 /* DetailView.swift */,
 				4D9C373227F5864E00A50E5D /* PlayButtonView.swift */,
+				4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -104,6 +121,7 @@
 			children = (
 				4D244AA727CA1B0200B436FD /* LocationManager.swift */,
 				4DD1134127CC26FD00D9442E /* FireStoreManager.swift */,
+				4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -123,6 +141,7 @@
 				4D244AAD27CA1B9D00B436FD /* Walk.swift */,
 				4DE8021827CF072F00AD1E3C /* ListViewModel.swift */,
 				4DE8021C27D0B6B100AD1E3C /* MarkerViewModel.swift */,
+				4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,6 +181,7 @@
 				4D244AA927CA1B4600B436FD /* ViewModel */,
 				4D244AA627CA1ACB00B436FD /* Manager */,
 				4D244AA327CA1A4E00B436FD /* View */,
+				4BFE863029023EF60053CCF7 /* Clustering */,
 				4D30CD7127EE7B8300726D3E /* Extension */,
 				4DD1134327CC271500D9442E /* Error */,
 				4DC3FECA280033E2004C50FC /* WalkWithHaesook.swift */,
@@ -334,10 +354,12 @@
 			files = (
 				4D537A6627F0E24D00BBF7A5 /* DetailView.swift in Sources */,
 				4DC3FECB280033E2004C50FC /* WalkWithHaesook.swift in Sources */,
+				4BFE863C290633480053CCF7 /* ClusterInfoWindowView.swift in Sources */,
 				4D244AAE27CA1B9D00B436FD /* Walk.swift in Sources */,
 				4DD1134827CC38EF00D9442E /* WalkRepository.swift in Sources */,
 				4D244AA527CA1A5E00B436FD /* MapView.swift in Sources */,
 				4DCBB89127EDA2FB0010364D /* CustomInfoWindowView.swift in Sources */,
+				4BFE863E2908D21E0053CCF7 /* MakerClusterModel.swift in Sources */,
 				4D244AA827CA1B0200B436FD /* LocationManager.swift in Sources */,
 				4D738BB227F1C290003686FC /* DetailViewModel.swift in Sources */,
 				4D30CD7327EE7BBC00726D3E /* Double+extension.swift in Sources */,
@@ -346,6 +368,8 @@
 				4D9C373327F5864E00A50E5D /* PlayButtonView.swift in Sources */,
 				4D48E1BC27C1868400F15D7E /* MapContentView.swift in Sources */,
 				4DD125482802A51B00119B4E /* OffsetScrollView.swift in Sources */,
+				4BFE8640290A3AF70053CCF7 /* MakerClusterManager.swift in Sources */,
+				4BFE863229023F0F0053CCF7 /* KMeans.swift in Sources */,
 				4D244AAB27CA1B5500B436FD /* MapViewModel.swift in Sources */,
 				4DE8021927CF072F00AD1E3C /* ListViewModel.swift in Sources */,
 				4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */,
@@ -498,6 +522,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WalkWithHaesook/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "해숙이와 산책";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 기반 컨텐츠 추천을 위해 위치 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 기반 컨텐츠 추천을 위해 위치 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -530,6 +555,7 @@
 				GCC_NO_COMMON_BLOCKS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WalkWithHaesook/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "해숙이와 산책";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 기반 컨텐츠 추천을 위해 위치 권한이 필요합니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 기반 컨텐츠 추천을 위해 위치 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
