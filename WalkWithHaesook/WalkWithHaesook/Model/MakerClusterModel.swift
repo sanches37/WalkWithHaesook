@@ -9,6 +9,7 @@ import Foundation
 import NMapsMap
 
 struct MakerClusterModel {
+  let id = UUID()
   let centroid: NMGLatLng
   let infoWindow: NMFInfoWindow
   let makerCount: Int

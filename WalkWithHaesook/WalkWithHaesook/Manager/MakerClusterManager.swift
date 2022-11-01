@@ -9,42 +9,49 @@ import Foundation
 import NMapsMap
 
 class MakerClusterManager {
-  func getCluster(makers: [NMFMarker], basePosition: NMGLatLng, allowableDistance: Double, completionHandler: @escaping ([MakerClusterModel], [[NMFMarker]]) -> Void) {
-    guard makers.count > 1 else { return }
+  func getCluster(makers: [NMFMarker],
+                  basePosition: NMGLatLng,
+                  allowableDistance: Double?,
+                  completionHandler: @escaping ([MakerClusterModel], [[NMFMarker]]) -> Void) {
+    guard let allowableDistance = allowableDistance,
+          makers.count > 1 else {
+      completionHandler([], [])
+      return
+    }
     var centers = getFirstCenters(makers: makers, basePosition: basePosition, allowableDistance: allowableDistance)
     var cluster: [[NMFMarker]] = []
-    var centerMoveDistance: Double = 0.0
+    var centerMoveDistance: Double = 0
     
     repeat {
       var classification: [[NMFMarker]] = .init(repeating: [], count: centers.count)
       makers.forEach {
         if let nearIndex =
-                indexOfNearestCenter(
-                  baseMaker: $0,
-                  centers: centers,
-                  allowableDistance: allowableDistance
-                ) {
+            indexOfNearestCenter(
+              baseMaker: $0,
+              centers: centers,
+              allowableDistance: allowableDistance
+            ) {
           classification[nearIndex].append($0)
         }
       }
       let newCenters = classification.map { assignedPoints -> NMFMarker in
         calculateCenters(makers: assignedPoints)
       }
-      centerMoveDistance = 0.0
-      for index in 0..<centers.count {
+      centerMoveDistance = 0
+      centers.indices.forEach {
         centerMoveDistance +=
-        centers[index].position.distance(to: newCenters[index].position)
+        centers[$0].position.distance(to: newCenters[$0].position)
       }
       centers = newCenters
       cluster = classification
     } while centerMoveDistance > 0
     
     let convertedTypeCenters = centers.enumerated().map { (index, center) -> MakerClusterModel in
-        MakerClusterModel(
-          centroid: center.position,
-          infoWindow: NMFInfoWindow(),
-          makerCount: cluster[index].count,
-          circle: NMFCircleOverlay())
+      MakerClusterModel(
+        centroid: center.position,
+        infoWindow: NMFInfoWindow(),
+        makerCount: cluster[index].count,
+        circle: NMFCircleOverlay())
     }.filter { $0.makerCount > 1 }
     
     completionHandler(
@@ -105,11 +112,14 @@ class MakerClusterManager {
     centers: [NMFMarker],
     allowableDistance: Double
   ) -> Int? {
+    var nearestDist = Double.greatestFiniteMagnitude
     var minIndex: Int?
     centers.enumerated().forEach { index, center in
       let distance = baseMaker.position.distance(to: center.position)
-      if distance < allowableDistance {
+      if distance < allowableDistance,
+      distance < nearestDist {
         minIndex = index
+        nearestDist = distance
       }
     }
     return minIndex

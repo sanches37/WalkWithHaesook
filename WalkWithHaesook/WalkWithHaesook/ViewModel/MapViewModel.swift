@@ -56,10 +56,6 @@ class MapViewModel: ObservableObject {
           self.allowableDistance = 12000
         case 9.5..<10:
           self.allowableDistance = 8000
-        case 10..<10.5:
-          self.allowableDistance = 5000
-        case 10.5..<11:
-          self.allowableDistance = 3000
         default:
           self.allowableDistance = nil
         }
@@ -173,14 +169,13 @@ class MapViewModel: ObservableObject {
     $markersOnTheScreen
       .zip($northWestPositionOfBounds)
       .sink { makers, northWest in
-        guard let northWest = northWest,
-              let allowableDistance = self.allowableDistance else {
+        guard let northWest = northWest else {
           return
         }
         self.makerClusterManager.getCluster(
           makers: makers,
           basePosition: northWest,
-          allowableDistance: allowableDistance) { centers, clusters in
+          allowableDistance: self.allowableDistance) { centers, clusters in
             self.markerClusterCenters = centers
             self.makerClusters = clusters
           }

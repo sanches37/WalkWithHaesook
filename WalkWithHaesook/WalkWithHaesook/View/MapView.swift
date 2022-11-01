@@ -34,7 +34,9 @@ struct MapView: UIViewRepresentable {
     setUpFocusLocation(context: context, mapView: mapView)
     updateFocusLocation(context: context)
     updateInfoWindow(context: context)
-    updateClusterInfoWindow(context: context, mapView: mapView)
+    addClusterInfoWindow(context: context, mapView: mapView)
+    addMarkers(context: context, mapView: mapView)
+    removeMakers(context: context, mapView: mapView)
   }
   
   private func setUpMarker(context: Context) {
@@ -109,21 +111,65 @@ struct MapView: UIViewRepresentable {
     return handler
   }
   
-  private func updateClusterInfoWindow(context: Context, mapView: NMFMapView) {
-    
+  private func clusterHandler() -> (NMFOverlay) -> Bool {
+    let handler = { (overlay: NMFOverlay) -> Bool in
+      if let cluster = overlay as? NMFInfoWindow {
+        mapViewModel.focusLocation = cluster.position
+        mapViewModel.mapView.zoomLevel = 10
+        mapViewModel.mapView.zoomLevel = 10
+      }
+      return true
+    }
+    return handler
+  }
+  
+  private func addClusterInfoWindow(context: Context, mapView: NMFMapView) {
     mapViewModel.$markerClusterCenters
       .sink { clusters in
         clusters.forEach {
           $0.infoWindow.dataSource = ClusterInfoWindowView(title: "\($0.makerCount)")
           $0.infoWindow.position = $0.centroid
-          $0.infoWindow.zIndex = 2
+          $0.infoWindow.touchHandler = clusterHandler()
+          $0.infoWindow.open(with: mapView)
           $0.circle.center = $0.centroid
           $0.circle.radius = mapViewModel.allowableDistance ?? 0
           $0.circle.fillColor = UIColor.blue.withAlphaComponent(0.5)
           $0.circle.mapView = mapView
-          $0.infoWindow.open(with: mapView)
-          print("open: \($0.makerCount)")
         }
+      }
+      .store(in: &context.coordinator.cancellable)
+  }
+  
+  private func addMarkers(context: Context, mapView: NMFMapView) {
+    mapViewModel.$makerClusters
+      .sink { clusters in
+        self.mapViewModel.markerViewModel
+          .filter { mapView.contentBounds.hasPoint($0.marker.position) }
+          .filter { markerViewModel in
+            clusters.flatMap { $0 }
+              .contains(markerViewModel.marker) == false
+          }
+          .forEach {
+            $0.marker.mapView = mapView
+            $0.infoWindow.open(with: $0.marker)
+          }
+      }
+      .store(in: &context.coordinator.cancellable)
+  }
+  
+  private func removeMakers(context: Context, mapView: NMFMapView) {
+    mapViewModel.$makerClusters
+      .sink { clusters in
+        self.mapViewModel.markerViewModel
+          .filter { mapView.contentBounds.hasPoint($0.marker.position) }
+          .filter { makerViewModel in
+            clusters.flatMap { $0 }
+              .contains(makerViewModel.marker)
+          }
+          .forEach {
+            $0.marker.mapView = nil
+            $0.infoWindow.close()
+          }
       }
       .store(in: &context.coordinator.cancellable)
   }
@@ -141,7 +187,7 @@ struct MapView: UIViewRepresentable {
 extension MapView.Coordinator: NMFMapViewCameraDelegate {
   func mapViewCameraIdle(_ mapView: NMFMapView) {
     getZoomLevel(mapView: mapView)
-    updateMarkers(mapView: mapView)
+    removeMakers(mapView: mapView)
     removeClusterInfoWindow {
       self.getMakersOnTheScreen(mapView: mapView)
       self.getNorthWestPositionOfBounds(mapView: mapView)
@@ -167,21 +213,17 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
     mapViewModel.markerClusterCenters.forEach {
       $0.circle.mapView = nil
       $0.infoWindow.close()
-      print("remove: \($0.makerCount)")
     }
     completion()
   }
   
-  private func updateMarkers(mapView: NMFMapView) {
-    mapViewModel.markerViewModel.forEach {
-      if mapView.contentBounds.hasPoint($0.marker.position) {
-        $0.marker.mapView = mapView
-        $0.infoWindow.open(with: $0.marker)
-      } else {
+  private func removeMakers(mapView: NMFMapView) {
+    mapViewModel.markerViewModel
+      .filter { !mapView.contentBounds.hasPoint($0.marker.position) }
+      .forEach {
         $0.marker.mapView = nil
         $0.infoWindow.close()
       }
-    }
   }
   
   private func deleteSelectedMarker(mapView: NMFMapView) {
@@ -196,7 +238,6 @@ extension MapView.Coordinator: NMFMapViewCameraDelegate {
   
   private func getZoomLevel(mapView: NMFMapView) {
     mapViewModel.zoomLevel = mapView.zoomLevel
-    print(mapViewModel.zoomLevel)
   }
 }
 
