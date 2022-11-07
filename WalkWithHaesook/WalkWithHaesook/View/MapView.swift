@@ -15,7 +15,7 @@ struct MapView: UIViewRepresentable {
   
   func makeUIView(context: Context) -> NMFMapView {
     let view = mapViewModel.mapView
-    view.zoomLevel = 11
+    view.zoomLevel = 10
     view.minZoomLevel = 6
     view.addCameraDelegate(delegate: context.coordinator)
     view.touchDelegate = context.coordinator
@@ -32,7 +32,7 @@ struct MapView: UIViewRepresentable {
   private func setUp(context: Context, mapView: NMFMapView) {
     setUpMarker(context: context)
     setUpFocusLocation(context: context, mapView: mapView)
-    updateFocusLocation(context: context)
+//    updateFocusLocation(context: context)
     updateInfoWindow(context: context)
     addClusterInfoWindow(context: context, mapView: mapView)
     addMarkers(context: context, mapView: mapView)
@@ -42,6 +42,7 @@ struct MapView: UIViewRepresentable {
   private func setUpMarker(context: Context) {
     let markerImage = NMFOverlayImage(name: markerImage)
     mapViewModel.$markerViewModel
+      .debounce(for: 0.02, scheduler: RunLoop.main)
       .first { $0.isEmpty == false }
       .sink {
         $0.forEach {
@@ -52,6 +53,7 @@ struct MapView: UIViewRepresentable {
           $0.infoWindow.touchHandler = markerHandler()
           $0.infoWindow.userInfo = ["id": $0.id ]
         }
+        firstFocusLocation()
       }
       .store(in: &context.coordinator.cancellable)
   }
@@ -65,6 +67,12 @@ struct MapView: UIViewRepresentable {
         mapView.moveCamera(cameraUpdate)
       }
       .store(in: &context.coordinator.cancellable)
+  }
+  
+  private func firstFocusLocation() {
+    mapViewModel.focusLocation = NMGLatLng(
+        lat: 35.3956361, lng: 129.2916776
+      )
   }
   
   private func updateFocusLocation(context: Context) {
