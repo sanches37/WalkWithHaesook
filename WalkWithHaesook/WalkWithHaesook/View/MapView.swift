@@ -131,10 +131,10 @@ struct MapView: UIViewRepresentable {
           $0.infoWindow.position = $0.centroid
           $0.infoWindow.touchHandler = clusterHandler()
           $0.infoWindow.open(with: mapView)
-          $0.circle.center = $0.centroid
-          $0.circle.radius = mapViewModel.allowableDistance ?? 0
-          $0.circle.fillColor = UIColor.blue.withAlphaComponent(0.5)
-          $0.circle.mapView = mapView
+//          $0.circle.center = $0.centroid
+//          $0.circle.radius = mapViewModel.allowableDistance ?? 0
+//          $0.circle.fillColor = UIColor.blue.withAlphaComponent(0.5)
+//          $0.circle.mapView = mapView
         }
       }
       .store(in: &context.coordinator.cancellable)

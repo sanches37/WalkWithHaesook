@@ -19,8 +19,8 @@ class WalkRepository: ObservableObject {
     fireStoreManager.fetch { (result: Result<[Walk], FireStoreError>) in
       switch result {
       case .success(let data):
-                self.walk = parkSample
-//        self.walk = data
+//                self.walk = parkSample
+        self.walk = data
 
       case .failure(let error):
         debugPrint(error.errorDescription)
