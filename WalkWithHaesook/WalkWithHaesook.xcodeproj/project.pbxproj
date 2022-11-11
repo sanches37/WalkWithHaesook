@@ -11,6 +11,7 @@
 		4BFE863C290633480053CCF7 /* ClusterInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */; };
 		4BFE863E2908D21E0053CCF7 /* MakerClusterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */; };
 		4BFE8640290A3AF70053CCF7 /* MakerClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */; };
+		4D0F5AFC291E4F3000B445ED /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F5AFB291E4F3000B445ED /* KakaoAuthManager.swift */; };
 		4D244AA227CA17F600B436FD /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4D244AA127CA17F600B436FD /* .swiftlint.yml */; };
 		4D244AA527CA1A5E00B436FD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D244AA427CA1A5E00B436FD /* MapView.swift */; };
 		4D244AA827CA1B0200B436FD /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D244AA727CA1B0200B436FD /* LocationManager.swift */; };
@@ -44,6 +45,7 @@
 		4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterInfoWindowView.swift; sourceTree = "<group>"; };
 		4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerClusterModel.swift; sourceTree = "<group>"; };
 		4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerClusterManager.swift; sourceTree = "<group>"; };
+		4D0F5AFB291E4F3000B445ED /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
 		4D244AA127CA17F600B436FD /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		4D244AA427CA1A5E00B436FD /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4D244AA727CA1B0200B436FD /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				4D244AA727CA1B0200B436FD /* LocationManager.swift */,
 				4DD1134127CC26FD00D9442E /* FireStoreManager.swift */,
 				4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */,
+				4D0F5AFB291E4F3000B445ED /* KakaoAuthManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				4D244AAB27CA1B5500B436FD /* MapViewModel.swift in Sources */,
 				4DE8021927CF072F00AD1E3C /* ListViewModel.swift in Sources */,
 				4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */,
+				4D0F5AFC291E4F3000B445ED /* KakaoAuthManager.swift in Sources */,
 				4D537A6427F0CDDB00BBF7A5 /* PlayerView.swift in Sources */,
 				4DD1134527CC272200D9442E /* FireStoreError.swift in Sources */,
 			);
