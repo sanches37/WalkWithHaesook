@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "GULLoggerLevel 2.h"
 #import "GULLoggerLevel.h"
 
 FOUNDATION_EXPORT double GoogleUtilitiesVersionNumber;

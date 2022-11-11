@@ -9,6 +9,9 @@ target 'WalkWithHaesook' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Kingfisher'
+  pod 'KakaoSDKCommon'
+  pod 'KakaoSDKAuth'
+  pod 'KakaoSDKUser'
 
   # Pods for WalkWithHaesook
 
