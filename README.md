@@ -29,17 +29,6 @@
 * ListView와 Marker가 서로 연동되게 동작하도록 구현
 <br/>
 
-## MakerCluster - zoomLevel 10이하에서 makerCluster 적용
-* 화면의 북서쪽 지점을 startPoint로 잡고, startPoint에서 거리가 가까운 maker순으로 array를 생성
-* array 순서대로 for문을 돌면서 zoomLevel별 지정된 범위로 첫 clusterCenter를 구함
-* 구해진 clusterCenter로 가까운 maker를 모아서 다시 center를 구함 -> 중심 좌표가 변하지 않을때까지 반복하여 최종 clusterCenter를 구함
-<img src = "https://user-images.githubusercontent.com/84059338/200486782-4329b04d-4e5b-426f-bc49-81e6a2b4471b.gif" width="300">
-
-## 앱스토어 배포
-* [해숙이와 산책](https://apps.apple.com/kr/app/%ED%95%B4%EC%88%99%EC%9D%B4%EC%99%80-%EC%82%B0%EC%B1%85/id1621105018)
-<br/>
-
-
 ## 사용기술
 * SwiftUI
 * Combine
