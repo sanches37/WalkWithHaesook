@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BFE863229023F0F0053CCF7 /* KMeans.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863129023F0F0053CCF7 /* KMeans.swift */; };
 		4BFE863C290633480053CCF7 /* ClusterInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */; };
 		4BFE863E2908D21E0053CCF7 /* MakerClusterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */; };
 		4BFE8640290A3AF70053CCF7 /* MakerClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */; };
@@ -42,7 +41,6 @@
 /* Begin PBXFileReference section */
 		0D8D3EBB204C16E686BEBA5A /* Pods-WalkWithHaesook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkWithHaesook.debug.xcconfig"; path = "Target Support Files/Pods-WalkWithHaesook/Pods-WalkWithHaesook.debug.xcconfig"; sourceTree = "<group>"; };
 		198B199383E3B66BC0E29B90 /* Pods-WalkWithHaesook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkWithHaesook.release.xcconfig"; path = "Target Support Files/Pods-WalkWithHaesook/Pods-WalkWithHaesook.release.xcconfig"; sourceTree = "<group>"; };
-		4BFE863129023F0F0053CCF7 /* KMeans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMeans.swift; sourceTree = "<group>"; };
 		4BFE863B290633480053CCF7 /* ClusterInfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterInfoWindowView.swift; sourceTree = "<group>"; };
 		4BFE863D2908D21E0053CCF7 /* MakerClusterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerClusterModel.swift; sourceTree = "<group>"; };
 		4BFE863F290A3AF60053CCF7 /* MakerClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerClusterManager.swift; sourceTree = "<group>"; };
@@ -94,14 +92,6 @@
 				6944F654F048805D5A841EC2 /* Pods_WalkWithHaesook.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4BFE863029023EF60053CCF7 /* Clustering */ = {
-			isa = PBXGroup;
-			children = (
-				4BFE863129023F0F0053CCF7 /* KMeans.swift */,
-			);
-			path = Clustering;
 			sourceTree = "<group>";
 		};
 		4D244AA327CA1A4E00B436FD /* View */ = {
@@ -186,7 +176,6 @@
 				4D244AA927CA1B4600B436FD /* ViewModel */,
 				4D244AA627CA1ACB00B436FD /* Manager */,
 				4D244AA327CA1A4E00B436FD /* View */,
-				4BFE863029023EF60053CCF7 /* Clustering */,
 				4D30CD7127EE7B8300726D3E /* Extension */,
 				4DD1134327CC271500D9442E /* Error */,
 				4DC3FECA280033E2004C50FC /* WalkWithHaesook.swift */,
@@ -376,7 +365,6 @@
 				4D48E1BC27C1868400F15D7E /* MapContentView.swift in Sources */,
 				4DD125482802A51B00119B4E /* OffsetScrollView.swift in Sources */,
 				4BFE8640290A3AF70053CCF7 /* MakerClusterManager.swift in Sources */,
-				4BFE863229023F0F0053CCF7 /* KMeans.swift in Sources */,
 				4D244AAB27CA1B5500B436FD /* MapViewModel.swift in Sources */,
 				4DE8021927CF072F00AD1E3C /* ListViewModel.swift in Sources */,
 				4DD1134227CC26FD00D9442E /* FireStoreManager.swift in Sources */,
